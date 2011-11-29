@@ -13,6 +13,10 @@
 		74EEE3DB14857439002667F8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 74EEE3D914857439002667F8 /* InfoPlist.strings */; };
 		74EEE3DD14857439002667F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EEE3DC14857439002667F8 /* main.m */; };
 		74EEE3E114857439002667F8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EEE3E014857439002667F8 /* AppDelegate.m */; };
+		74EEE3F01485747E002667F8 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EEE3E91485747E002667F8 /* settings.png */; };
+		74EEE3F11485747E002667F8 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EEE3EA1485747E002667F8 /* settings@2x.png */; };
+		74EEE3F21485747E002667F8 /* timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EEE3EB1485747E002667F8 /* timeline.png */; };
+		74EEE3F31485747E002667F8 /* timeline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EEE3EC1485747E002667F8 /* timeline@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		74EEE3DE14857439002667F8 /* Twitter List Reader-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Twitter List Reader-Prefix.pch"; sourceTree = "<group>"; };
 		74EEE3DF14857439002667F8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		74EEE3E014857439002667F8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		74EEE3E91485747E002667F8 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		74EEE3EA1485747E002667F8 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
+		74EEE3EB1485747E002667F8 /* timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeline.png; sourceTree = "<group>"; };
+		74EEE3EC1485747E002667F8 /* timeline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +80,11 @@
 		74EEE3D614857439002667F8 /* Twitter List Reader */ = {
 			isa = PBXGroup;
 			children = (
+				74EEE3E71485747E002667F8 /* controllers */,
+				74EEE3E81485747E002667F8 /* images */,
+				74EEE3ED1485747E002667F8 /* models */,
+				74EEE3EE1485747E002667F8 /* storyboards */,
+				74EEE3EF1485747E002667F8 /* views */,
 				74EEE3DF14857439002667F8 /* AppDelegate.h */,
 				74EEE3E014857439002667F8 /* AppDelegate.m */,
 				74EEE3D714857439002667F8 /* Supporting Files */,
@@ -88,6 +101,45 @@
 				74EEE3DE14857439002667F8 /* Twitter List Reader-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		74EEE3E71485747E002667F8 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		74EEE3E81485747E002667F8 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				74EEE3E91485747E002667F8 /* settings.png */,
+				74EEE3EA1485747E002667F8 /* settings@2x.png */,
+				74EEE3EB1485747E002667F8 /* timeline.png */,
+				74EEE3EC1485747E002667F8 /* timeline@2x.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		74EEE3ED1485747E002667F8 /* models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		74EEE3EE1485747E002667F8 /* storyboards */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = storyboards;
+			sourceTree = "<group>";
+		};
+		74EEE3EF1485747E002667F8 /* views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +194,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				74EEE3DB14857439002667F8 /* InfoPlist.strings in Resources */,
+				74EEE3F01485747E002667F8 /* settings.png in Resources */,
+				74EEE3F11485747E002667F8 /* settings@2x.png in Resources */,
+				74EEE3F21485747E002667F8 /* timeline.png in Resources */,
+				74EEE3F31485747E002667F8 /* timeline@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
