@@ -10,11 +10,12 @@
 
 @implementation TwitterClient
 
-+ (NSDictionary *)getUsersLists {
++ (NSDictionary *)getListsForAccount:(ACAccount *)account {
     NSString *listsURL = @"http://api.twitter.com/1/lists/all.json";
     TWRequest *listsRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:listsURL] 
                                                   parameters:nil 
                                                requestMethod:TWRequestMethodGET];
+    listsRequest.account = account;
     __block NSDictionary *returnedLists = nil;    
     [listsRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
         if ([urlResponse statusCode] == 200) 

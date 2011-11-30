@@ -12,6 +12,6 @@
 
 @interface TwitterClient : NSObject
 
-+ (NSDictionary *)getUsersLists;
++ (NSDictionary *)getListsForAccount:(ACAccount *)account;
 
 @end
