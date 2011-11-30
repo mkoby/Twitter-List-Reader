@@ -17,6 +17,10 @@
 		74EEE3F11485747E002667F8 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EEE3EA1485747E002667F8 /* settings@2x.png */; };
 		74EEE3F21485747E002667F8 /* timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EEE3EB1485747E002667F8 /* timeline.png */; };
 		74EEE3F31485747E002667F8 /* timeline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74EEE3EC1485747E002667F8 /* timeline@2x.png */; };
+		74EEE3F5148574BB002667F8 /* list-reader.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74EEE3F4148574BB002667F8 /* list-reader.storyboard */; };
+		74EEE3FE14858DF7002667F8 /* AppTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EEE3FD14858DF7002667F8 /* AppTabBarController.m */; };
+		74EEE40114858F82002667F8 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EEE40014858F82002667F8 /* TimelineViewController.m */; };
+		74EEE4041485906F002667F8 /* AppNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74EEE4031485906F002667F8 /* AppNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,13 @@
 		74EEE3EA1485747E002667F8 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		74EEE3EB1485747E002667F8 /* timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeline.png; sourceTree = "<group>"; };
 		74EEE3EC1485747E002667F8 /* timeline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timeline@2x.png"; sourceTree = "<group>"; };
+		74EEE3F4148574BB002667F8 /* list-reader.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "list-reader.storyboard"; sourceTree = "<group>"; };
+		74EEE3FC14858DF7002667F8 /* AppTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppTabBarController.h; sourceTree = "<group>"; };
+		74EEE3FD14858DF7002667F8 /* AppTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppTabBarController.m; sourceTree = "<group>"; };
+		74EEE3FF14858F82002667F8 /* TimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineViewController.h; sourceTree = "<group>"; };
+		74EEE40014858F82002667F8 /* TimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineViewController.m; sourceTree = "<group>"; };
+		74EEE4021485906F002667F8 /* AppNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNavigationController.h; sourceTree = "<group>"; };
+		74EEE4031485906F002667F8 /* AppNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppNavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +91,7 @@
 		74EEE3D614857439002667F8 /* Twitter List Reader */ = {
 			isa = PBXGroup;
 			children = (
-				74EEE3E71485747E002667F8 /* controllers */,
+				74EEE3FB14858DE4002667F8 /* controllers */,
 				74EEE3E81485747E002667F8 /* images */,
 				74EEE3ED1485747E002667F8 /* models */,
 				74EEE3EE1485747E002667F8 /* storyboards */,
@@ -101,13 +112,6 @@
 				74EEE3DE14857439002667F8 /* Twitter List Reader-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		74EEE3E71485747E002667F8 /* controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = controllers;
 			sourceTree = "<group>";
 		};
 		74EEE3E81485747E002667F8 /* images */ = {
@@ -131,6 +135,7 @@
 		74EEE3EE1485747E002667F8 /* storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				74EEE3F4148574BB002667F8 /* list-reader.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -140,6 +145,19 @@
 			children = (
 			);
 			path = views;
+			sourceTree = "<group>";
+		};
+		74EEE3FB14858DE4002667F8 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				74EEE3FC14858DF7002667F8 /* AppTabBarController.h */,
+				74EEE3FD14858DF7002667F8 /* AppTabBarController.m */,
+				74EEE3FF14858F82002667F8 /* TimelineViewController.h */,
+				74EEE40014858F82002667F8 /* TimelineViewController.m */,
+				74EEE4021485906F002667F8 /* AppNavigationController.h */,
+				74EEE4031485906F002667F8 /* AppNavigationController.m */,
+			);
+			path = controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +216,7 @@
 				74EEE3F11485747E002667F8 /* settings@2x.png in Resources */,
 				74EEE3F21485747E002667F8 /* timeline.png in Resources */,
 				74EEE3F31485747E002667F8 /* timeline@2x.png in Resources */,
+				74EEE3F5148574BB002667F8 /* list-reader.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +229,9 @@
 			files = (
 				74EEE3DD14857439002667F8 /* main.m in Sources */,
 				74EEE3E114857439002667F8 /* AppDelegate.m in Sources */,
+				74EEE3FE14858DF7002667F8 /* AppTabBarController.m in Sources */,
+				74EEE40114858F82002667F8 /* TimelineViewController.m in Sources */,
+				74EEE4041485906F002667F8 /* AppNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
