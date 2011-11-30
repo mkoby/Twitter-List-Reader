@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		743BAA5A1486AA1A00985B95 /* TwitterAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA591486AA1A00985B95 /* TwitterAccountsViewController.m */; };
+		743BAA5D1486AA3600985B95 /* AccountListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA5C1486AA3600985B95 /* AccountListsViewController.m */; };
+		743BAA601486AA6700985B95 /* SingleTweetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA5F1486AA6700985B95 /* SingleTweetViewController.m */; };
 		74EEE3D114857439002667F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D014857439002667F8 /* UIKit.framework */; };
 		74EEE3D314857439002667F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D214857439002667F8 /* Foundation.framework */; };
 		74EEE3D514857439002667F8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D414857439002667F8 /* CoreGraphics.framework */; };
@@ -24,6 +27,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		743BAA581486AA1A00985B95 /* TwitterAccountsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAccountsViewController.h; sourceTree = "<group>"; };
+		743BAA591486AA1A00985B95 /* TwitterAccountsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAccountsViewController.m; sourceTree = "<group>"; };
+		743BAA5B1486AA3600985B95 /* AccountListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountListsViewController.h; sourceTree = "<group>"; };
+		743BAA5C1486AA3600985B95 /* AccountListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountListsViewController.m; sourceTree = "<group>"; };
+		743BAA5E1486AA6700985B95 /* SingleTweetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleTweetViewController.h; sourceTree = "<group>"; };
+		743BAA5F1486AA6700985B95 /* SingleTweetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleTweetViewController.m; sourceTree = "<group>"; };
 		74EEE3CC14857439002667F8 /* Twitter List Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twitter List Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74EEE3D014857439002667F8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		74EEE3D214857439002667F8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -150,12 +159,18 @@
 		74EEE3FB14858DE4002667F8 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				74EEE3FC14858DF7002667F8 /* AppTabBarController.h */,
-				74EEE3FD14858DF7002667F8 /* AppTabBarController.m */,
-				74EEE3FF14858F82002667F8 /* TimelineViewController.h */,
-				74EEE40014858F82002667F8 /* TimelineViewController.m */,
+				743BAA5B1486AA3600985B95 /* AccountListsViewController.h */,
+				743BAA5C1486AA3600985B95 /* AccountListsViewController.m */,
 				74EEE4021485906F002667F8 /* AppNavigationController.h */,
 				74EEE4031485906F002667F8 /* AppNavigationController.m */,
+				74EEE3FC14858DF7002667F8 /* AppTabBarController.h */,
+				74EEE3FD14858DF7002667F8 /* AppTabBarController.m */,
+				743BAA5E1486AA6700985B95 /* SingleTweetViewController.h */,
+				743BAA5F1486AA6700985B95 /* SingleTweetViewController.m */,
+				74EEE3FF14858F82002667F8 /* TimelineViewController.h */,
+				74EEE40014858F82002667F8 /* TimelineViewController.m */,
+				743BAA581486AA1A00985B95 /* TwitterAccountsViewController.h */,
+				743BAA591486AA1A00985B95 /* TwitterAccountsViewController.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -232,6 +247,9 @@
 				74EEE3FE14858DF7002667F8 /* AppTabBarController.m in Sources */,
 				74EEE40114858F82002667F8 /* TimelineViewController.m in Sources */,
 				74EEE4041485906F002667F8 /* AppNavigationController.m in Sources */,
+				743BAA5A1486AA1A00985B95 /* TwitterAccountsViewController.m in Sources */,
+				743BAA5D1486AA3600985B95 /* AccountListsViewController.m in Sources */,
+				743BAA601486AA6700985B95 /* SingleTweetViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +353,7 @@
 				74EEE3E614857439002667F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
