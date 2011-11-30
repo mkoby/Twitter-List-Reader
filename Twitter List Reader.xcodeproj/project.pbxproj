@@ -12,6 +12,8 @@
 		743BAA601486AA6700985B95 /* SingleTweetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA5F1486AA6700985B95 /* SingleTweetViewController.m */; };
 		743BAA631486CBEE00985B95 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743BAA611486CBEE00985B95 /* Accounts.framework */; };
 		743BAA641486CBEE00985B95 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743BAA621486CBEE00985B95 /* Twitter.framework */; };
+		743BAA691486E69E00985B95 /* TwitterClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA661486E69E00985B95 /* TwitterClient.m */; };
+		743BAA6A1486E69E00985B95 /* TwitterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA681486E69E00985B95 /* TwitterList.m */; };
 		74EEE3D114857439002667F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D014857439002667F8 /* UIKit.framework */; };
 		74EEE3D314857439002667F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D214857439002667F8 /* Foundation.framework */; };
 		74EEE3D514857439002667F8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D414857439002667F8 /* CoreGraphics.framework */; };
@@ -37,6 +39,10 @@
 		743BAA5F1486AA6700985B95 /* SingleTweetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleTweetViewController.m; sourceTree = "<group>"; };
 		743BAA611486CBEE00985B95 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		743BAA621486CBEE00985B95 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		743BAA651486E69E00985B95 /* TwitterClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwitterClient.h; path = "../../../../temp/Twitter List Reader/Twitter List Reader/models/TwitterClient.h"; sourceTree = "<group>"; };
+		743BAA661486E69E00985B95 /* TwitterClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TwitterClient.m; path = "../../../../temp/Twitter List Reader/Twitter List Reader/models/TwitterClient.m"; sourceTree = "<group>"; };
+		743BAA671486E69E00985B95 /* TwitterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwitterList.h; path = "../../../../temp/Twitter List Reader/Twitter List Reader/models/TwitterList.h"; sourceTree = "<group>"; };
+		743BAA681486E69E00985B95 /* TwitterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TwitterList.m; path = "../../../../temp/Twitter List Reader/Twitter List Reader/models/TwitterList.m"; sourceTree = "<group>"; };
 		74EEE3CC14857439002667F8 /* Twitter List Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twitter List Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74EEE3D014857439002667F8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		74EEE3D214857439002667F8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -145,6 +151,10 @@
 		74EEE3ED1485747E002667F8 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				743BAA651486E69E00985B95 /* TwitterClient.h */,
+				743BAA661486E69E00985B95 /* TwitterClient.m */,
+				743BAA671486E69E00985B95 /* TwitterList.h */,
+				743BAA681486E69E00985B95 /* TwitterList.m */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -258,6 +268,8 @@
 				743BAA5A1486AA1A00985B95 /* TwitterAccountsViewController.m in Sources */,
 				743BAA5D1486AA3600985B95 /* AccountListsViewController.m in Sources */,
 				743BAA601486AA6700985B95 /* SingleTweetViewController.m in Sources */,
+				743BAA691486E69E00985B95 /* TwitterClient.m in Sources */,
+				743BAA6A1486E69E00985B95 /* TwitterList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
