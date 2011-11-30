@@ -7,7 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Accounts/Accounts.h>
+#import <Twitter/Twitter.h>
 
-@interface TwitterAccountsViewController : UITableViewController
+#define kAccountName 1
+
+@interface TwitterAccountsViewController : UITableViewController {
+    NSArray *twitterAccounts;
+    UITableView *accountsTable;
+}
+
+@property (nonatomic, strong) NSArray *twitterAccounts;
+@property (nonatomic, strong) IBOutlet UITableView *accountsTable;
+
+- (void)getTwitterAccounts;
 
 @end

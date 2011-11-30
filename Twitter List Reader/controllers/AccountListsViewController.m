@@ -11,6 +11,9 @@
 
 @implementation AccountListsViewController
 
+@synthesize listsTable;
+@synthesize account;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];

@@ -47,21 +47,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountCellIdentifier" id="ZN6-uk-839">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountCellIdentifier" id="ZN6-uk-839">
                                 <rect key="frame" x="0.0" y="46" width="320" height="46"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="1" width="267" height="43"/>
+                                    <rect key="frame" x="10" y="1" width="280" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="@mkoby" lineBreakMode="tailTruncation" minimumFontSize="10" id="Igv-bG-GFG">
-                                            <rect key="frame" x="20" y="11" width="247" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
@@ -75,6 +66,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Twitter Accounts" id="9bF-9h-DEj"/>
+                    <connections>
+                        <outlet property="accountsTable" destination="zqt-qB-dyD" id="RMY-Qm-JEB"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="684" y="1077"/>
@@ -82,7 +76,7 @@
         <scene sceneID="nFd-3W-Spk">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uEc-X7-NJr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="qYl-7F-grZ" customClass="AccountListsViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AccountLists" id="qYl-7F-grZ" customClass="AccountListsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="e6Q-mi-vuK">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -256,6 +250,9 @@
     <classes>
         <class className="AccountListsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AccountListsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="listsTable" candidateClass="UITableView"/>
+            </relationships>
         </class>
         <class className="AppNavigationController" superclassName="UINavigationController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AppNavigationController.h"/>
@@ -271,6 +268,9 @@
         </class>
         <class className="TwitterAccountsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TwitterAccountsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="accountsTable" candidateClass="UITableView"/>
+            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

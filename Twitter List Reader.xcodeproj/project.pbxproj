@@ -10,6 +10,8 @@
 		743BAA5A1486AA1A00985B95 /* TwitterAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA591486AA1A00985B95 /* TwitterAccountsViewController.m */; };
 		743BAA5D1486AA3600985B95 /* AccountListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA5C1486AA3600985B95 /* AccountListsViewController.m */; };
 		743BAA601486AA6700985B95 /* SingleTweetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA5F1486AA6700985B95 /* SingleTweetViewController.m */; };
+		743BAA631486CBEE00985B95 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743BAA611486CBEE00985B95 /* Accounts.framework */; };
+		743BAA641486CBEE00985B95 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743BAA621486CBEE00985B95 /* Twitter.framework */; };
 		74EEE3D114857439002667F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D014857439002667F8 /* UIKit.framework */; };
 		74EEE3D314857439002667F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D214857439002667F8 /* Foundation.framework */; };
 		74EEE3D514857439002667F8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D414857439002667F8 /* CoreGraphics.framework */; };
@@ -33,6 +35,8 @@
 		743BAA5C1486AA3600985B95 /* AccountListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountListsViewController.m; sourceTree = "<group>"; };
 		743BAA5E1486AA6700985B95 /* SingleTweetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleTweetViewController.h; sourceTree = "<group>"; };
 		743BAA5F1486AA6700985B95 /* SingleTweetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleTweetViewController.m; sourceTree = "<group>"; };
+		743BAA611486CBEE00985B95 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		743BAA621486CBEE00985B95 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		74EEE3CC14857439002667F8 /* Twitter List Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twitter List Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74EEE3D014857439002667F8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		74EEE3D214857439002667F8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -61,6 +65,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				743BAA631486CBEE00985B95 /* Accounts.framework in Frameworks */,
+				743BAA641486CBEE00985B95 /* Twitter.framework in Frameworks */,
 				74EEE3D114857439002667F8 /* UIKit.framework in Frameworks */,
 				74EEE3D314857439002667F8 /* Foundation.framework in Frameworks */,
 				74EEE3D514857439002667F8 /* CoreGraphics.framework in Frameworks */,
@@ -90,6 +96,8 @@
 		74EEE3CF14857439002667F8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				743BAA611486CBEE00985B95 /* Accounts.framework */,
+				743BAA621486CBEE00985B95 /* Twitter.framework */,
 				74EEE3D014857439002667F8 /* UIKit.framework */,
 				74EEE3D214857439002667F8 /* Foundation.framework */,
 				74EEE3D414857439002667F8 /* CoreGraphics.framework */,

@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Accounts/Accounts.h>
+#import <Twitter/Twitter.h>
 
-@interface AccountListsViewController : UITableViewController
+@interface AccountListsViewController : UITableViewController {
+    UITableView *listsTable;
+    ACAccount *account;
+}
+
+@property (nonatomic, strong) IBOutlet UITableView *listsTable;
+@property (nonatomic, strong) ACAccount *account;
 
 @end

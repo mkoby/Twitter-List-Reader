@@ -7,9 +7,13 @@
 //
 
 #import "TwitterAccountsViewController.h"
+#import "AccountListsViewController.h"
 
 
 @implementation TwitterAccountsViewController
+
+@synthesize accountsTable;
+@synthesize twitterAccounts;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -32,7 +36,8 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+    [super viewDidLoad];    
+    [self getTwitterAccounts];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -74,32 +79,55 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)getTwitterAccounts {
+    ACAccountStore  *account = [[ACAccountStore alloc] init];
+    ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    
+    [account requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
+         // Did user allow us access?
+         if (granted == YES) {
+             // Populate array with all available Twitter accounts       
+             twitterAccounts = [account accountsWithAccountType:accountType];
+             
+             if (twitterAccounts.count > 0) {
+                 [self performSelectorOnMainThread:@selector(updateTable) withObject:NULL waitUntilDone:NO];
+             }
+         }
+     }];
+}
+
+- (void)updateTable {
+    [accountsTable reloadData];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [twitterAccounts count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    
+    static NSString *CellIdentifier = @"AccountCellIdentifier";    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    // Configure the cell...
+    NSInteger row = indexPath.row;
+    ACAccount *account = [twitterAccounts objectAtIndex:row];
+    NSString *accountNameString = [[NSString alloc] initWithFormat:@"@%@", [account username]];
+    
+    [[cell textLabel] setText:accountNameString];
     
     return cell;
 }
@@ -147,13 +175,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    AccountListsViewController *accountLists = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountLists"];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    NSInteger row = [indexPath row];
+    ACAccount *selectedAccount = [twitterAccounts objectAtIndex:row];
+    accountLists.account = selectedAccount;
+    accountLists.title = [[cell textLabel] text];
+    
+    [self.navigationController pushViewController:accountLists animated:YES];
 }
 
 @end
