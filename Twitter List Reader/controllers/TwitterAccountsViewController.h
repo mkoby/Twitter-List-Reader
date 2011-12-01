@@ -15,10 +15,12 @@
 @interface TwitterAccountsViewController : UITableViewController {
     NSArray *twitterAccounts;
     UITableView *accountsTable;
+    ACAccount *selectedAccount;
 }
 
 @property (nonatomic, strong) NSArray *twitterAccounts;
 @property (nonatomic, strong) IBOutlet UITableView *accountsTable;
+@property (nonatomic, strong) ACAccount *selectedAccount;
 
 - (void)getTwitterAccounts;
 

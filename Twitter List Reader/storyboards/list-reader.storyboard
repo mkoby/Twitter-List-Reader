@@ -89,14 +89,7 @@
                                     <rect key="frame" x="10" y="1" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Techmeme-Leaderboard-50" lineBreakMode="tailTruncation" minimumFontSize="10" id="c4z-go-BG2">
-                                            <rect key="frame" x="20" y="11" width="173" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <switch opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="djF-BW-2kY">
+                                        <switch opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="djF-BW-2kY">
                                             <rect key="frame" x="201" y="8" width="79" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </switch>
@@ -113,6 +106,9 @@
                     <navigationItem key="navigationItem" title="Lists" id="PCJ-F5-DS4">
                         <barButtonItem key="backBarButtonItem" title="Accounts" id="a91-xH-e0z"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="listsTable" destination="e6Q-mi-vuK" id="F9q-GR-Kme"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1221" y="1077"/>

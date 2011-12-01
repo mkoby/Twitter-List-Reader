@@ -13,9 +13,15 @@
 @interface AccountListsViewController : UITableViewController {
     UITableView *listsTable;
     ACAccount *account;
+    NSArray *listsData;
+    NSArray *accountLists;
 }
 
 @property (nonatomic, strong) IBOutlet UITableView *listsTable;
 @property (nonatomic, strong) ACAccount *account;
+@property (nonatomic, strong) NSArray *accountLists;
+@property (nonatomic, strong) NSArray *listsData;
+
+- (void)getListsForAccount:(ACAccount *)twitterAccount;
 
 @end

@@ -7,12 +7,13 @@
 //
 
 #import "AccountListsViewController.h"
+#import "TwitterList.h"
 
 
 @implementation AccountListsViewController
 
 @synthesize listsTable;
-@synthesize account;
+@synthesize account, listsData, accountLists;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -36,6 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self getListsForAccount:self.account];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -77,32 +79,77 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)getListsForAccount:(ACAccount *)twitterAccount {
+    if (twitterAccount == nil)
+        return;
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:@"mkoby" forKey:@"screen_name"];
+    NSURL *url = [NSURL URLWithString:@"http://api.twitter.com/1/lists/all.json"];
+    TWRequest *request = [[TWRequest alloc] initWithURL:url 
+                                             parameters:params 
+                                          requestMethod:TWRequestMethodGET];
+    //[request setAccount:twitterAccount];
+    
+    [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", error);
+            return;
+        }
+        
+        if ([urlResponse statusCode] == 200) {
+            NSError *jsonError;
+            listsData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&jsonError];
+            [self performSelectorOnMainThread:@selector(updateTable) withObject:NULL waitUntilDone:NO];
+        } else {
+            NSLog(@"Response Code: %i", [urlResponse statusCode]);
+        }
+    }];
+}
+
+- (void)updateTable {
+    NSMutableArray *lists = [[NSMutableArray alloc] init];
+    for (NSDictionary *list in listsData) {
+        [lists addObject:[[TwitterList alloc] initWithAttributes:list]];
+    }
+    
+    self.accountLists = [[NSArray alloc] initWithArray:lists];
+    
+//    for (TwitterList *list in self.accountLists) {
+//        NSLog(@"Name: %@\nDescription: %@\n", list.name, list.description);
+//    }
+    
+    [self.listsTable reloadData];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [self.accountLists count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"AccountListItemIdentifier";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    // Configure the cell...
+    NSInteger row = [indexPath row];
+    TwitterList *listItem = [accountLists objectAtIndex:row];
+    
+    [[cell textLabel] setText:listItem.name];
     
     return cell;
 }

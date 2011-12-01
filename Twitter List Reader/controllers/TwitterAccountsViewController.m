@@ -13,7 +13,7 @@
 @implementation TwitterAccountsViewController
 
 @synthesize accountsTable;
-@synthesize twitterAccounts;
+@synthesize twitterAccounts, selectedAccount;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -100,6 +100,24 @@
     [accountsTable reloadData];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if (self.selectedAccount == nil) {
+        UITableViewCell *cell = (UITableViewCell *)sender;
+        NSString *accountUsername = [[[cell textLabel] text] substringFromIndex:1];
+        
+        for (ACAccount *account in twitterAccounts) {
+            NSString *currentUsername = account.username;
+            if ([currentUsername isEqualToString:accountUsername]) {
+                self.selectedAccount = account;
+                break;
+            }
+        }
+    }
+    
+    AccountListsViewController *alvc = (AccountListsViewController *)[segue destinationViewController];
+    alvc.account = self.selectedAccount;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -175,14 +193,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AccountListsViewController *accountLists = [self.storyboard instantiateViewControllerWithIdentifier:@"AccountLists"];
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     NSInteger row = [indexPath row];
-    ACAccount *selectedAccount = [twitterAccounts objectAtIndex:row];
-    accountLists.account = selectedAccount;
-    accountLists.title = [[cell textLabel] text];
-    
-    [self.navigationController pushViewController:accountLists animated:YES];
+    self.selectedAccount = [twitterAccounts objectAtIndex:row];
 }
+
 
 @end
