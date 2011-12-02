@@ -84,12 +84,12 @@
         return;
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:@"mkoby" forKey:@"screen_name"];
+    [params setObject:@"1" forKey:@"include_rts"];
     NSURL *url = [NSURL URLWithString:@"http://api.twitter.com/1/lists/all.json"];
     TWRequest *request = [[TWRequest alloc] initWithURL:url 
                                              parameters:params 
                                           requestMethod:TWRequestMethodGET];
-    //[request setAccount:twitterAccount];
+    [request setAccount:twitterAccount];
     
     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
         if (error != nil) {
@@ -113,12 +113,7 @@
         [lists addObject:[[TwitterList alloc] initWithAttributes:list]];
     }
     
-    self.accountLists = [[NSArray alloc] initWithArray:lists];
-    
-//    for (TwitterList *list in self.accountLists) {
-//        NSLog(@"Name: %@\nDescription: %@\n", list.name, list.description);
-//    }
-    
+    self.accountLists = [[NSArray alloc] initWithArray:lists];    
     [self.listsTable reloadData];
 }
 

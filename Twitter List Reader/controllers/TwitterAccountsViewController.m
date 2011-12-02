@@ -8,7 +8,7 @@
 
 #import "TwitterAccountsViewController.h"
 #import "AccountListsViewController.h"
-
+#import "AppDelegate.h"
 
 @implementation TwitterAccountsViewController
 
@@ -80,7 +80,8 @@
 }
 
 - (void)getTwitterAccounts {
-    ACAccountStore  *account = [[ACAccountStore alloc] init];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    ACAccountStore *account = appDelegate.accountStore;
     ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     
     [account requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
