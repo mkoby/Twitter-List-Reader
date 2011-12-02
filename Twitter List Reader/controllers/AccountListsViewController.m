@@ -13,7 +13,7 @@
 @implementation AccountListsViewController
 
 @synthesize listsTable;
-@synthesize account, listsData, accountLists;
+@synthesize account, listsData, accountLists, sortedKeys;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -113,7 +113,8 @@
         [lists addObject:[[TwitterList alloc] initWithAttributes:list]];
     }
     
-    self.accountLists = [[NSArray alloc] initWithArray:lists];    
+    self.accountLists = [TwitterList createNSDictionaryOfListsFromNSArray:lists];
+    self.sortedKeys =[[self.accountLists allKeys] sortedArrayUsingSelector:@selector(compare:)];
     [self.listsTable reloadData];
 }
 
@@ -122,19 +123,24 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return [self.sortedKeys count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [self.sortedKeys objectAtIndex:section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.accountLists count];
+    NSArray *listData =[self.accountLists objectForKey:[self.sortedKeys objectAtIndex:section]];
+    return [listData count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"AccountListItemIdentifier";
-    
+    NSArray *listData =[self.accountLists objectForKey:[self.sortedKeys objectAtIndex:[indexPath section]]];
+    static NSString *CellIdentifier = @"AccountListItemIdentifier";    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
@@ -142,7 +148,7 @@
     }
     
     NSInteger row = [indexPath row];
-    TwitterList *listItem = [accountLists objectAtIndex:row];
+    TwitterList *listItem = [listData objectAtIndex:row];
     
     [[cell textLabel] setText:listItem.name];
     

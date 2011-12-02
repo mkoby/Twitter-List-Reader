@@ -14,13 +14,15 @@
     UITableView *listsTable;
     ACAccount *account;
     NSArray *listsData;
-    NSArray *accountLists;
+    NSDictionary *accountLists;
+    NSArray *sortedKeys;
 }
 
 @property (nonatomic, strong) IBOutlet UITableView *listsTable;
 @property (nonatomic, strong) ACAccount *account;
-@property (nonatomic, strong) NSArray *accountLists;
+@property (nonatomic, strong) NSDictionary *accountLists;
 @property (nonatomic, strong) NSArray *listsData;
+@property (nonatomic, strong) NSArray *sortedKeys;
 
 - (void)getListsForAccount:(ACAccount *)twitterAccount;
 

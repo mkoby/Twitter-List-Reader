@@ -9,7 +9,7 @@
 #import "TwitterList.h"
 
 @implementation TwitterList
-@synthesize name, description, listId;
+@synthesize name, description, listId, fullName, mode;
 
 - (id)initWithAttributes:(NSDictionary *)attributes {
     self = [super init];
@@ -17,13 +17,31 @@
         return nil;
     }
     
-    NSLog(@"%@", attributes);
+    //NSLog(@"%@", attributes);
     
     self.name = [attributes valueForKeyPath:@"name"];
     self.description = [attributes valueForKeyPath:@"description"];
-//    self.listId = (NSUInteger *)[attributes valueForKeyPath:@"id"];
+    self.fullName = [attributes valueForKeyPath:@"full_name"];
+    self.mode = [attributes valueForKeyPath:@"mode"];
+    self.listId = (NSUInteger *)[[attributes valueForKeyPath:@"id"] intValue];
     
     return self;
+}
+
++ (id)createNSDictionaryOfListsFromNSArray:(NSArray *)listsArray {
+    NSMutableArray *privateLists = [[NSMutableArray alloc] init];
+    NSMutableArray *publicLists = [[NSMutableArray alloc] init];
+    
+    for (TwitterList *list in listsArray) {
+        if ([list.mode isEqualToString:@"private"])
+            [privateLists addObject:list];
+        if ([list.mode isEqualToString:@"public"])
+            [publicLists addObject:list];
+    }
+    
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithObjectsAndKeys:privateLists,@"Private", publicLists,@"Public", nil];    
+    
+    return dictionary;
 }
 
 @end

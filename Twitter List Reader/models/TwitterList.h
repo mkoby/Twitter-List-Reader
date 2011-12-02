@@ -10,14 +10,13 @@
 
 @interface TwitterList : NSObject {
     NSUInteger *listId;
-    NSString *name;
-    NSString *description;
+    NSString *name, *fullName, *description, *mode;
 }
 
 @property (nonatomic) NSUInteger *listId;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *name, *fullName, *description, *mode;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;
++ (id)createNSDictionaryOfListsFromNSArray:(NSArray *)listsArray;
 
 @end
