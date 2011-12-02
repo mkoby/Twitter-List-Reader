@@ -100,6 +100,23 @@
         if ([urlResponse statusCode] == 200) {
             NSError *jsonError;
             listsData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&jsonError];
+            
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            dispatch_group_t process_group = dispatch_group_create();
+            
+            dispatch_sync(queue, ^{
+                NSMutableArray *lists = [[NSMutableArray alloc] init];
+                for (NSDictionary *list in listsData) {
+                    [lists addObject:[[TwitterList alloc] initWithAttributes:list]];
+                }
+                
+                self.accountLists = [TwitterList createNSDictionaryOfListsFromNSArray:lists];
+                self.sortedKeys =[[self.accountLists allKeys] sortedArrayUsingSelector:@selector(compare:)];
+            });
+            
+            dispatch_group_wait(process_group, DISPATCH_TIME_FOREVER);    
+            dispatch_release(process_group);
+            
             [self performSelectorOnMainThread:@selector(updateTable) withObject:NULL waitUntilDone:NO];
         } else {
             NSLog(@"Response Code: %i", [urlResponse statusCode]);
@@ -108,13 +125,6 @@
 }
 
 - (void)updateTable {
-    NSMutableArray *lists = [[NSMutableArray alloc] init];
-    for (NSDictionary *list in listsData) {
-        [lists addObject:[[TwitterList alloc] initWithAttributes:list]];
-    }
-    
-    self.accountLists = [TwitterList createNSDictionaryOfListsFromNSArray:lists];
-    self.sortedKeys =[[self.accountLists allKeys] sortedArrayUsingSelector:@selector(compare:)];
     [self.listsTable reloadData];
 }
 
@@ -140,7 +150,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *listData =[self.accountLists objectForKey:[self.sortedKeys objectAtIndex:[indexPath section]]];
-    static NSString *CellIdentifier = @"AccountListItemIdentifier";    
+    static NSString *CellIdentifier = @"AccountListCellIdentifier";    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
@@ -150,7 +160,12 @@
     NSInteger row = [indexPath row];
     TwitterList *listItem = [listData objectAtIndex:row];
     
-    [[cell textLabel] setText:listItem.name];
+    UILabel *nameLabel = (UILabel *)[cell viewWithTag:1];
+    nameLabel.text = listItem.name;
+    
+    UISwitch *downloadSwitch = (UISwitch *)[cell viewWithTag:2];
+    downloadSwitch.on = FALSE; //TODO: Check settings DB to see if it's active, set accordingly
+    downloadSwitch.enabled = YES;
     
     return cell;
 }
