@@ -106,6 +106,7 @@
             
             dispatch_sync(queue, ^{
                 NSMutableArray *lists = [[NSMutableArray alloc] init];
+
                 for (NSDictionary *list in listsData) {
                     [lists addObject:[[TwitterList alloc] initWithAttributes:list]];
                 }
@@ -164,7 +165,7 @@
     nameLabel.text = listItem.name;
     
     UISwitch *downloadSwitch = (UISwitch *)[cell viewWithTag:2];
-    downloadSwitch.on = FALSE; //TODO: Check settings DB to see if it's active, set accordingly
+    downloadSwitch.on = NO; //TODO: Check settings DB to see if it's active, set accordingly
     downloadSwitch.enabled = YES;
     
     return cell;

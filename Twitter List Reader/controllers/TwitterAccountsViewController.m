@@ -104,7 +104,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if (self.selectedAccount == nil) {
         UITableViewCell *cell = (UITableViewCell *)sender;
-        NSString *accountUsername = [[[cell textLabel] text] substringFromIndex:1];
+        NSString *accountUsername = [[cell textLabel] text];
         
         for (ACAccount *account in twitterAccounts) {
             NSString *currentUsername = account.username;
@@ -143,10 +143,8 @@
     }
     
     NSInteger row = indexPath.row;
-    ACAccount *account = [twitterAccounts objectAtIndex:row];
-    NSString *accountNameString = [[NSString alloc] initWithFormat:@"@%@", [account username]];
-    
-    [[cell textLabel] setText:accountNameString];
+    ACAccount *account = [twitterAccounts objectAtIndex:row];    
+    [[cell textLabel] setText:[account username]];
     
     return cell;
 }
