@@ -14,6 +14,7 @@
 		743BAA641486CBEE00985B95 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743BAA621486CBEE00985B95 /* Twitter.framework */; };
 		743BAA6F1486E78C00985B95 /* TwitterClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA6C1486E78C00985B95 /* TwitterClient.m */; };
 		743BAA701486E78C00985B95 /* TwitterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA6E1486E78C00985B95 /* TwitterList.m */; };
+		746A0042148E773B00D90B97 /* app.db in Resources */ = {isa = PBXBuildFile; fileRef = 746A0041148E773B00D90B97 /* app.db */; };
 		749E49C0148D344D009ADD45 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 749E49BA148D344D009ADD45 /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		749E49C1148D344D009ADD45 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 749E49BC148D344D009ADD45 /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		749E49C3148D344D009ADD45 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 749E49BF148D344D009ADD45 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -47,6 +48,7 @@
 		743BAA6C1486E78C00985B95 /* TwitterClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterClient.m; sourceTree = "<group>"; };
 		743BAA6D1486E78C00985B95 /* TwitterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterList.h; sourceTree = "<group>"; };
 		743BAA6E1486E78C00985B95 /* TwitterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterList.m; sourceTree = "<group>"; };
+		746A0041148E773B00D90B97 /* app.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = app.db; sourceTree = "<group>"; };
 		749E49B9148D344D009ADD45 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		749E49BA148D344D009ADD45 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		749E49BB148D344D009ADD45 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -94,6 +96,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		746A0040148E773B00D90B97 /* db */ = {
+			isa = PBXGroup;
+			children = (
+				746A0041148E773B00D90B97 /* app.db */,
+			);
+			path = db;
+			sourceTree = "<group>";
+		};
 		749E49B7148D344D009ADD45 /* third-party */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +158,7 @@
 		74EEE3D614857439002667F8 /* Twitter List Reader */ = {
 			isa = PBXGroup;
 			children = (
+				746A0040148E773B00D90B97 /* db */,
 				749E49B7148D344D009ADD45 /* third-party */,
 				74EEE3FB14858DE4002667F8 /* controllers */,
 				74EEE3E81485747E002667F8 /* images */,
@@ -285,6 +296,7 @@
 				74EEE3F21485747E002667F8 /* timeline.png in Resources */,
 				74EEE3F31485747E002667F8 /* timeline@2x.png in Resources */,
 				74EEE3F5148574BB002667F8 /* list-reader.storyboard in Resources */,
+				746A0042148E773B00D90B97 /* app.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,15 +12,35 @@
 
 @synthesize window = _window;
 @synthesize accountStore = _accountStore;
+@synthesize databaseName = _databaseName, databasePath = _databasePath;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.accountStore = [[ACAccountStore alloc] init];
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    // Override point for customization after application launch.
-//    self.window.backgroundColor = [UIColor whiteColor];
-//    [self.window makeKeyAndVisible];
+    [self prepareDatabase];
     return YES;
+}
+
+- (void)prepareDatabase {
+    self.databaseName = @"app.db";
+    NSArray *documentPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, 
+                                                                 NSUserDomainMask, 
+                                                                 YES);
+    NSString *documentDirectory = [documentPaths objectAtIndex:0];
+    self.databasePath = [documentDirectory stringByAppendingPathComponent:self.databaseName];
+    
+    BOOL success;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    success = [fileManager fileExistsAtPath:self.databasePath];
+    
+    if (success)
+        return;
+    
+    NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] 
+                                     stringByAppendingPathComponent:self.databaseName];
+    [fileManager copyItemAtPath:databasePathFromApp 
+                         toPath:self.databasePath 
+                          error:nil];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
