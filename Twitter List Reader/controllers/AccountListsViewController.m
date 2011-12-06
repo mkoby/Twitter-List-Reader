@@ -243,7 +243,14 @@
 {
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];    
-    UISwitch *theSwitch = (UISwitch *)cell.accessoryView;  
+    UISwitch *theSwitch = (UISwitch *)cell.accessoryView;
+    
+    if (theSwitch.isOn) {
+        [theSwitch setOn:NO animated:YES];
+    } else if (theSwitch.isOn == NO) {
+        [theSwitch setOn:YES animated:YES];
+    }
+    
     [self performSelector:@selector(changeState:) withObject:theSwitch];
     
     //Deselect this row
