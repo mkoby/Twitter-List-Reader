@@ -13,7 +13,7 @@
 @implementation AccountListsViewController
 
 @synthesize listsTable;
-@synthesize account, listsData, accountLists, sortedKeys;
+@synthesize account, accountIdentifier, listsData, accountLists, sortedKeys;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -79,10 +79,14 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (IBAction)turnOnList:(id)sender {
+}
+
 - (void)getListsForAccount:(ACAccount *)twitterAccount {
     if (twitterAccount == nil)
         return;
     
+    self.accountIdentifier = twitterAccount.identifier;
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:@"1" forKey:@"include_rts"];
     NSURL *url = [NSURL URLWithString:@"http://api.twitter.com/1/lists/all.json"];
@@ -129,6 +133,27 @@
     [self.listsTable reloadData];
 }
 
+- (void)changeState:(id)sender {
+    UISwitch *selectedSwitch = (UISwitch *)sender;
+    UITableViewCell *cell = (UITableViewCell *)selectedSwitch.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSInteger row = [indexPath row];
+    NSArray *listData =[self.accountLists objectForKey:[self.sortedKeys objectAtIndex:[indexPath section]]];
+    TwitterList *listItem = [listData objectAtIndex:row];
+    
+    NSLog(@"\nAccount Identifier: %@\nList ID: %d", self.accountIdentifier, (int)listItem.listId);
+    
+    //Add Account/List ids to DB
+    //Set Switch status
+    //Deselect the row
+    
+    if (selectedSwitch.isOn) {
+        NSLog(@"ON");
+    } else if (selectedSwitch.isOn == NO) {
+        NSLog(@"OFF");
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -165,8 +190,10 @@
     nameLabel.text = listItem.name;
     
     UISwitch *downloadSwitch = (UISwitch *)[cell viewWithTag:2];
-    downloadSwitch.on = NO; //TODO: Check settings DB to see if it's active, set accordingly
+    [downloadSwitch setOn:NO animated:YES]; //TODO: Check settings DB to see if it's active, set accordingly
     downloadSwitch.enabled = YES;
+    [cell setAccessoryView:downloadSwitch];
+    [(UISwitch *)cell.accessoryView addTarget:self action:@selector(changeState:) forControlEvents:UIControlEventValueChanged];
     
     return cell;
 }
@@ -214,13 +241,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];    
+    UISwitch *theSwitch = (UISwitch *)cell.accessoryView;  
+    [self performSelector:@selector(changeState:) withObject:theSwitch];
+    
+    //Deselect this row
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

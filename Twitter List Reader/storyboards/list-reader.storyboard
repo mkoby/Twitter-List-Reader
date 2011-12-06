@@ -256,6 +256,7 @@
         <class className="AccountListsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AccountListsViewController.h"/>
             <relationships>
+                <relationship kind="action" name="turnOnList:"/>
                 <relationship kind="outlet" name="listsTable" candidateClass="UITableView"/>
             </relationships>
         </class>
