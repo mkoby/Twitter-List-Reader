@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface TwitterList : NSObject {
-    NSUInteger *listId;
+    NSUInteger listId;
     NSString *name, *fullName, *description, *mode;
 }
 
-@property (nonatomic) NSUInteger *listId;
+@property (nonatomic) NSUInteger listId;
 @property (nonatomic, strong) NSString *name, *fullName, *description, *mode;
 
 - (id)initWithAttributes:(NSDictionary *)attributes;

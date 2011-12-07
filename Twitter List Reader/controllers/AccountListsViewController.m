@@ -8,7 +8,7 @@
 
 #import "AccountListsViewController.h"
 #import "TwitterList.h"
-
+#import "FMDBDataAccess.h"
 
 @implementation AccountListsViewController
 
@@ -145,7 +145,6 @@
     
     //Add Account/List ids to DB
     //Set Switch status
-    //Deselect the row
     
     if (selectedSwitch.isOn) {
         NSLog(@"ON");
@@ -189,11 +188,17 @@
     UILabel *nameLabel = (UILabel *)[cell viewWithTag:1];
     nameLabel.text = listItem.name;
     
-    UISwitch *downloadSwitch = (UISwitch *)[cell viewWithTag:2];
-    [downloadSwitch setOn:NO animated:YES]; //TODO: Check settings DB to see if it's active, set accordingly
-    downloadSwitch.enabled = YES;
-    [cell setAccessoryView:downloadSwitch];
-    [(UISwitch *)cell.accessoryView addTarget:self action:@selector(changeState:) forControlEvents:UIControlEventValueChanged];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UISwitch *downloadSwitch = (UISwitch *)[cell viewWithTag:2];
+        [cell setAccessoryView:downloadSwitch];
+        [(UISwitch *)cell.accessoryView addTarget:self action:@selector(changeState:) forControlEvents:UIControlEventValueChanged];
+        downloadSwitch.enabled = YES;
+        BOOL isOn = [FMDBDataAccess isList:listItem.listId activeForAccountIdentifier:self.accountIdentifier];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [downloadSwitch setOn:isOn animated:YES];
+        });
+    });
     
     return cell;
 }

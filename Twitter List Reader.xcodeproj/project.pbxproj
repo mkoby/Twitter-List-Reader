@@ -19,6 +19,7 @@
 		749E49C1148D344D009ADD45 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 749E49BC148D344D009ADD45 /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		749E49C3148D344D009ADD45 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 749E49BF148D344D009ADD45 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		749E49C6148D3471009ADD45 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 749E49C5148D3471009ADD45 /* libsqlite3.dylib */; };
+		74A2798C148FCE1100B29EDA /* FMDBDataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A2798B148FCE1100B29EDA /* FMDBDataAccess.m */; };
 		74EEE3D114857439002667F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D014857439002667F8 /* UIKit.framework */; };
 		74EEE3D314857439002667F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D214857439002667F8 /* Foundation.framework */; };
 		74EEE3D514857439002667F8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D414857439002667F8 /* CoreGraphics.framework */; };
@@ -56,6 +57,8 @@
 		749E49BE148D344D009ADD45 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		749E49BF148D344D009ADD45 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		749E49C5148D3471009ADD45 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		74A2798A148FCE1100B29EDA /* FMDBDataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDBDataAccess.h; sourceTree = "<group>"; };
+		74A2798B148FCE1100B29EDA /* FMDBDataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBDataAccess.m; sourceTree = "<group>"; };
 		74EEE3CC14857439002667F8 /* Twitter List Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twitter List Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74EEE3D014857439002667F8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		74EEE3D214857439002667F8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -197,6 +200,8 @@
 		74EEE3ED1485747E002667F8 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				74A2798A148FCE1100B29EDA /* FMDBDataAccess.h */,
+				74A2798B148FCE1100B29EDA /* FMDBDataAccess.m */,
 				743BAA6B1486E78C00985B95 /* TwitterClient.h */,
 				743BAA6C1486E78C00985B95 /* TwitterClient.m */,
 				743BAA6D1486E78C00985B95 /* TwitterList.h */,
@@ -320,6 +325,7 @@
 				749E49C0148D344D009ADD45 /* FMDatabase.m in Sources */,
 				749E49C1148D344D009ADD45 /* FMDatabaseAdditions.m in Sources */,
 				749E49C3148D344D009ADD45 /* FMResultSet.m in Sources */,
+				74A2798C148FCE1100B29EDA /* FMDBDataAccess.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

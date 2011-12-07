@@ -23,7 +23,7 @@
     self.description = [attributes valueForKeyPath:@"description"];
     self.fullName = [attributes valueForKeyPath:@"full_name"];
     self.mode = [attributes valueForKeyPath:@"mode"];
-    self.listId = (NSUInteger *)[[attributes valueForKeyPath:@"id"] intValue];
+    self.listId = (NSUInteger)[[attributes valueForKeyPath:@"id"] intValue];
     
     return self;
 }
