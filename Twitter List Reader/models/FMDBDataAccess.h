@@ -14,11 +14,16 @@
 #import "FMResultSet.h"
 
 @interface FMDBDataAccess : NSObject {
-    
+    FMDatabase *database;
 }
 
-+ (BOOL)isList:(NSUInteger)listID activeForAccountIdentifier:(NSString *)accountIdentifier;
-+ (BOOL)addListID:(NSUInteger)listID forAccountIdentifier:(NSString *)accountIdentifier;
-+ (BOOL)removeListID:(NSUInteger)listID forAccountIdentifier:(NSString *)accountIdentifier;
+@property (nonatomic, strong) FMDatabase *database;
+
+- (BOOL)isList:(NSUInteger)listID activeForAccountIdentifier:(NSString *)accountIdentifier;
+- (BOOL)addListID:(NSUInteger)listID forAccountIdentifier:(NSString *)accountIdentifier;
+- (BOOL)removeListID:(NSUInteger)listID forAccountIdentifier:(NSString *)accountIdentifier;
+
+- (int)returnCountWithSqlString:(NSString *)sql;
+- (BOOL)updateDatabaseWithSqlString:(NSString *)sql;
 
 @end

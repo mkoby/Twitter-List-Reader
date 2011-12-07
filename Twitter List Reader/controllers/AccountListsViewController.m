@@ -141,13 +141,14 @@
         NSInteger row = [indexPath row];
         NSArray *listData =[self.accountLists objectForKey:[self.sortedKeys objectAtIndex:[indexPath section]]];
         TwitterList *listItem = [listData objectAtIndex:row];
+        FMDBDataAccess *dataAccess = [[FMDBDataAccess alloc] init];
         
         //NSLog(@"\nAccount Identifier: %@\nList ID: %d", self.accountIdentifier, (int)listItem.listId);
         
         if (selectedSwitch.isOn) {
-            [FMDBDataAccess addListID:listItem.listId forAccountIdentifier:self.accountIdentifier];
+            [dataAccess addListID:listItem.listId forAccountIdentifier:self.accountIdentifier];
         } else if (selectedSwitch.isOn == NO) {
-            [FMDBDataAccess removeListID:listItem.listId forAccountIdentifier:self.accountIdentifier];
+            [dataAccess removeListID:listItem.listId forAccountIdentifier:self.accountIdentifier];
         }
     });
 }
@@ -193,10 +194,11 @@
     downloadSwitch.enabled = YES;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        BOOL isOn = [FMDBDataAccess isList:listItem.listId activeForAccountIdentifier:self.accountIdentifier];
+        FMDBDataAccess *dataAccess = [[FMDBDataAccess alloc] init];
+        BOOL isOn = [dataAccess isList:listItem.listId activeForAccountIdentifier:self.accountIdentifier];
         
         dispatch_sync(dispatch_get_main_queue(), ^{
-            [downloadSwitch setOn:isOn animated:NO];
+            [downloadSwitch setOn:isOn animated:YES];
         });
     });
     
