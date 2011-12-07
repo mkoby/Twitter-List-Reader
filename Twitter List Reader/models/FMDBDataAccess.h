@@ -18,5 +18,7 @@
 }
 
 + (BOOL)isList:(NSUInteger)listID activeForAccountIdentifier:(NSString *)accountIdentifier;
++ (BOOL)addListID:(NSUInteger)listID forAccountIdentifier:(NSString *)accountIdentifier;
++ (BOOL)removeListID:(NSUInteger)listID forAccountIdentifier:(NSString *)accountIdentifier;
 
 @end

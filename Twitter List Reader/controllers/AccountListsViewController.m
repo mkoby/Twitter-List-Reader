@@ -133,24 +133,23 @@
     [self.listsTable reloadData];
 }
 
-- (void)changeState:(id)sender {
-    UISwitch *selectedSwitch = (UISwitch *)sender;
-    UITableViewCell *cell = (UITableViewCell *)selectedSwitch.superview;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    NSInteger row = [indexPath row];
-    NSArray *listData =[self.accountLists objectForKey:[self.sortedKeys objectAtIndex:[indexPath section]]];
-    TwitterList *listItem = [listData objectAtIndex:row];
-    
-    NSLog(@"\nAccount Identifier: %@\nList ID: %d", self.accountIdentifier, (int)listItem.listId);
-    
-    //Add Account/List ids to DB
-    //Set Switch status
-    
-    if (selectedSwitch.isOn) {
-        NSLog(@"ON");
-    } else if (selectedSwitch.isOn == NO) {
-        NSLog(@"OFF");
-    }
+- (void)changeState:(id)sender {    
+    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UISwitch *selectedSwitch = (UISwitch *)sender;
+        UITableViewCell *cell = (UITableViewCell *)selectedSwitch.superview;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        NSInteger row = [indexPath row];
+        NSArray *listData =[self.accountLists objectForKey:[self.sortedKeys objectAtIndex:[indexPath section]]];
+        TwitterList *listItem = [listData objectAtIndex:row];
+        
+        //NSLog(@"\nAccount Identifier: %@\nList ID: %d", self.accountIdentifier, (int)listItem.listId);
+        
+        if (selectedSwitch.isOn) {
+            [FMDBDataAccess addListID:listItem.listId forAccountIdentifier:self.accountIdentifier];
+        } else if (selectedSwitch.isOn == NO) {
+            [FMDBDataAccess removeListID:listItem.listId forAccountIdentifier:self.accountIdentifier];
+        }
+    });
 }
 
 #pragma mark - Table view data source
@@ -188,15 +187,16 @@
     UILabel *nameLabel = (UILabel *)[cell viewWithTag:1];
     nameLabel.text = listItem.name;
     
+    __block UISwitch *downloadSwitch = (UISwitch *)[cell viewWithTag:2];
+    [cell setAccessoryView:downloadSwitch];
+    [(UISwitch *)cell.accessoryView addTarget:self action:@selector(changeState:) forControlEvents:UIControlEventValueChanged];
+    downloadSwitch.enabled = YES;
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UISwitch *downloadSwitch = (UISwitch *)[cell viewWithTag:2];
-        [cell setAccessoryView:downloadSwitch];
-        [(UISwitch *)cell.accessoryView addTarget:self action:@selector(changeState:) forControlEvents:UIControlEventValueChanged];
-        downloadSwitch.enabled = YES;
         BOOL isOn = [FMDBDataAccess isList:listItem.listId activeForAccountIdentifier:self.accountIdentifier];
         
         dispatch_sync(dispatch_get_main_queue(), ^{
-            [downloadSwitch setOn:isOn animated:YES];
+            [downloadSwitch setOn:isOn animated:NO];
         });
     });
     
