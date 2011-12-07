@@ -8,6 +8,7 @@
 
 #import "TimelineViewController.h"
 #import "FMDBDataAccess.h"
+#import "TwitterClient.h"
 
 @implementation TimelineViewController
 @synthesize activeLists;
@@ -45,6 +46,11 @@
     [super viewDidLoad];
     FMDBDataAccess *dataAccess = [[FMDBDataAccess alloc] init];
     self.activeLists = [dataAccess getActiveLists];
+    
+    for (NSDictionary *list in self.activeLists) {
+        NSNumber *listidnumber = [list valueForKeyPath:@"ListID"];
+        [TwitterClient getTimelineForListWithId:[listidnumber unsignedIntValue] forAccountWithIdentifier:[list valueForKeyPath:@"AccountIdentifier"]];
+    }
 }
 
 

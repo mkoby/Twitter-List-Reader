@@ -13,5 +13,6 @@
 @interface TwitterClient : NSObject
 
 + (NSDictionary *)getListsForAccount:(ACAccount *)account;
++ (NSArray *)getTimelineForListWithId:(NSUInteger)listId forAccountWithIdentifier:(NSString *)accountIdentifier;
 
 @end
