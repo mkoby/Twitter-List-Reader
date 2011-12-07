@@ -22,8 +22,10 @@
 - (BOOL)isList:(NSUInteger)listID activeForAccountIdentifier:(NSString *)accountIdentifier;
 - (BOOL)addListID:(NSUInteger)listID forAccountIdentifier:(NSString *)accountIdentifier;
 - (BOOL)removeListID:(NSUInteger)listID forAccountIdentifier:(NSString *)accountIdentifier;
+- (NSArray *)getActiveLists;
 
 - (int)returnCountWithSqlString:(NSString *)sql;
 - (BOOL)updateDatabaseWithSqlString:(NSString *)sql;
+- (NSArray *)returnResultSetArrayWithSqlString:(NSString *)sql;
 
 @end

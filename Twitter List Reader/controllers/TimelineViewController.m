@@ -7,8 +7,10 @@
 //
 
 #import "TimelineViewController.h"
+#import "FMDBDataAccess.h"
 
 @implementation TimelineViewController
+@synthesize activeLists;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,13 +38,15 @@
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    FMDBDataAccess *dataAccess = [[FMDBDataAccess alloc] init];
+    self.activeLists = [dataAccess getActiveLists];
 }
-*/
+
 
 - (void)viewDidUnload
 {
