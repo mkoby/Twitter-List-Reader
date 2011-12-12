@@ -11,7 +11,7 @@
 #import "TwitterClient.h"
 
 @implementation TimelineViewController
-@synthesize activeLists;
+@synthesize activeLists, tweetItems;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
