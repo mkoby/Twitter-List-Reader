@@ -14,6 +14,7 @@
 		743BAA641486CBEE00985B95 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743BAA621486CBEE00985B95 /* Twitter.framework */; };
 		743BAA6F1486E78C00985B95 /* TwitterClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA6C1486E78C00985B95 /* TwitterClient.m */; };
 		743BAA701486E78C00985B95 /* TwitterList.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA6E1486E78C00985B95 /* TwitterList.m */; };
+		7459534F1496BAEA0012ACE7 /* TweetItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7459534E1496BAEA0012ACE7 /* TweetItem.m */; };
 		746A0042148E773B00D90B97 /* app.db in Resources */ = {isa = PBXBuildFile; fileRef = 746A0041148E773B00D90B97 /* app.db */; };
 		749E49C0148D344D009ADD45 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 749E49BA148D344D009ADD45 /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		749E49C1148D344D009ADD45 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 749E49BC148D344D009ADD45 /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -49,6 +50,8 @@
 		743BAA6C1486E78C00985B95 /* TwitterClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterClient.m; sourceTree = "<group>"; };
 		743BAA6D1486E78C00985B95 /* TwitterList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterList.h; sourceTree = "<group>"; };
 		743BAA6E1486E78C00985B95 /* TwitterList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterList.m; sourceTree = "<group>"; };
+		7459534D1496BAEA0012ACE7 /* TweetItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetItem.h; sourceTree = "<group>"; };
+		7459534E1496BAEA0012ACE7 /* TweetItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetItem.m; sourceTree = "<group>"; };
 		746A0041148E773B00D90B97 /* app.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = app.db; sourceTree = "<group>"; };
 		749E49B9148D344D009ADD45 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		749E49BA148D344D009ADD45 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
@@ -200,6 +203,8 @@
 		74EEE3ED1485747E002667F8 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				7459534D1496BAEA0012ACE7 /* TweetItem.h */,
+				7459534E1496BAEA0012ACE7 /* TweetItem.m */,
 				74A2798A148FCE1100B29EDA /* FMDBDataAccess.h */,
 				74A2798B148FCE1100B29EDA /* FMDBDataAccess.m */,
 				743BAA6B1486E78C00985B95 /* TwitterClient.h */,
@@ -326,6 +331,7 @@
 				749E49C1148D344D009ADD45 /* FMDatabaseAdditions.m in Sources */,
 				749E49C3148D344D009ADD45 /* FMResultSet.m in Sources */,
 				74A2798C148FCE1100B29EDA /* FMDBDataAccess.m in Sources */,
+				7459534F1496BAEA0012ACE7 /* TweetItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
