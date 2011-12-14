@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface TimelineViewController : UITableViewController {
-    NSArray *activeLists, *tweetItems;
+    NSArray *activeLists;
+    NSMutableArray *tweetItems;
 }
 
-@property (nonatomic, strong) NSArray *activeLists, *tweetItems;
+@property (nonatomic, strong) NSArray *activeLists;
+@property (nonatomic, strong) NSMutableArray *tweetItems;
+
+- (void)getTweetItemsForActiveLists;
 
 @end

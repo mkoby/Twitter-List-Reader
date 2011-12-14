@@ -10,7 +10,10 @@
 #import <Accounts/Accounts.h>
 #import <Twitter/Twitter.h>
 
-@interface TwitterClient : NSObject
+@interface TwitterClient : NSObject {
+    NSDictionary *returnedTweets;
+    NSArray *tweetItems;
+}
 
 + (NSDictionary *)getListsForAccount:(ACAccount *)account;
 + (NSArray *)getTimelineForListWithId:(NSUInteger)listId forAccountWithIdentifier:(NSString *)accountIdentifier;

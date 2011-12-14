@@ -8,6 +8,7 @@
 
 #import "TwitterClient.h"
 #import "AppDelegate.h"
+#import "TweetItem.h"
 
 @implementation TwitterClient
 
@@ -49,7 +50,7 @@
                                                requestMethod:TWRequestMethodGET];
     listsRequest.account = account;
     
-    __block NSDictionary *returnedTweets = nil;    
+    __block NSDictionary *returnedTweets = nil;
     [listsRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
         if ([urlResponse statusCode] == 200) 
         {
@@ -57,11 +58,28 @@
             // Move the response into a dictionary and print
             NSError *error;        
             returnedTweets = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
-            NSLog(@"Twitter response: %@", returnedTweets);                           
+            //NSLog(@"Twitter response: %@", returnedTweets);
         }
         else
             NSLog(@"Twitter error, HTTP response: %i", [urlResponse statusCode]);
     }];
+    
+    if (returnedTweets == nil)
+        NSLog(@"No returned tweets, this is probably wrong");
+    
+    if (returnedTweets != nil) {
+        if (returnedTweets != nil) {
+            NSMutableArray *items = [[NSMutableArray alloc] init];
+            
+            for (NSDictionary *tweet in returnedTweets) {
+                //NSLog(@"%@", tweet);
+                TweetItem *item = [[TweetItem alloc] initWithAttributes:tweet];
+                [items addObject:item];
+            }
+            
+            output = [[NSArray alloc] initWithArray:items];
+        }
+    }
     
     return output;
 }
