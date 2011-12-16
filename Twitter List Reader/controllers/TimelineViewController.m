@@ -70,8 +70,6 @@
     self.tweetItems = [[NSMutableArray alloc] init];
     
     for (NSDictionary *list in self.activeLists) {
-        //[listidnumber unsignedIntValue]
-        //[list valueForKeyPath:@"AccountIdentifier"]
         ACAccount *account = [accounts accountWithIdentifier:[list valueForKeyPath:@"AccountIdentifier"]];
         NSString *listsURL = @"https://api.twitter.com/1/lists/statuses.json";
         NSMutableDictionary *requestParameters = [[NSMutableDictionary alloc] init];
@@ -101,7 +99,7 @@
                         [self.tweetItems addObject:item];
                     }
                     
-                    [self performSelector:@selector(processTweetItems)];
+                    [self performSelectorInBackground:@selector(processTweetItems) withObject:nil];
                 }
                 //NSLog(@"Twitter response: %@", returnedTweets);
             }
@@ -118,7 +116,7 @@
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_group_t process_group = dispatch_group_create();
     
-    dispatch_sync(queue, ^{        
+    dispatch_async(queue, ^{        
         __block NSDateFormatter* df = nil;
         
         df = [[NSDateFormatter alloc] init];
@@ -170,6 +168,32 @@
         dispatch_sync(dispatch_get_main_queue(), ^{
             UIImageView *avatarImageView = (UIImageView *)[cell viewWithTag:1];
             avatarImageView.image = avatarImage;
+        });
+    });
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UILabel *timeLabel = (UILabel *)[cell viewWithTag:8];
+        //Figure out how long ago
+        NSDate *now = [NSDate date];
+        
+        // Get the system calendar
+        NSCalendar *sysCalendar = [NSCalendar currentCalendar];
+        unsigned int unitFlags = NSHourCalendarUnit | NSMinuteCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit;        
+        NSDateComponents *conversionInfo = [sysCalendar components:unitFlags fromDate:tweet.tweetDate toDate:now  options:0];
+        NSString *amount = @"";
+        
+        if ([conversionInfo hour] > 0)
+            amount = [[NSString alloc] initWithFormat:@"%dh", [conversionInfo hour]];
+        else if([conversionInfo minute] > 0)
+            amount = [[NSString alloc] initWithFormat:@"%dm", [conversionInfo minute]];
+        else
+            amount = [[NSString alloc] initWithFormat:@"%ds", [conversionInfo second]];
+
+        NSString *timeAgo = [[NSString alloc] initWithFormat:@"%@", amount];
+        
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            timeLabel.text = timeAgo;
         });
     });
     

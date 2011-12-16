@@ -160,7 +160,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="8" contentMode="left" text="2 hours" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" enabled="NO" id="vJ3-X3-aK8">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="8" contentMode="left" text="2 hours" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" enabled="NO" id="vJ3-X3-aK8">
                                             <rect key="frame" x="258" y="4" width="42" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
