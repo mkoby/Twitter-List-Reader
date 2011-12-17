@@ -24,5 +24,6 @@
 
 - (TweetItem *)initWithAttributes:(NSDictionary *)attributes;
 - (NSString *)getUserDataFromUserAttributes:(NSDictionary *)attributes forKeyValue:(NSString *)keyValue;
+- (NSString *)getDateDifferenceForTweetDate;
 
 @end

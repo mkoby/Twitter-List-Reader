@@ -37,4 +37,24 @@
     return [attributes valueForKeyPath:keyValue];
 }
 
+- (NSString *)getDateDifferenceForTweetDate {
+    NSString *amount = @"";
+    double secondsSinceTweet = [self.tweetDate timeIntervalSinceNow];
+    int secondsInInt = (int)(secondsSinceTweet * -1);
+    
+    if (secondsInInt < 60) {
+        amount = [[NSString alloc] initWithFormat:@"%ds", secondsInInt];
+    } else if (secondsInInt > 60 && secondsInInt < 3600) {
+        amount = [[NSString alloc] initWithFormat:@"%dm", (secondsInInt / 60)];
+    } else if (secondsInInt > 3600 && secondsInInt < 86400) {
+        amount = [[NSString alloc] initWithFormat:@"%dh", (secondsInInt / 3600)];
+    } else if(secondsInInt > 86400) {
+        amount = [[NSString alloc] initWithFormat:@"%d days", (secondsInInt / 86400)];
+    }
+    
+    NSString *timeAgo = [[NSString alloc] initWithFormat:@"%@", amount];
+    
+    return timeAgo;
+}
+
 @end

@@ -142,26 +142,6 @@
     [self.tableView reloadData];
 }
 
-- (NSString *)getDateDifferenceForTweetDate:(NSDate *)tweetDate {
-    NSString *amount = @"";
-    double secondsSinceTweet = [tweetDate timeIntervalSinceNow];
-    int secondsInInt = (int)(secondsSinceTweet * -1);
-    
-    if (secondsInInt < 60) {
-        amount = [[NSString alloc] initWithFormat:@"%ds", secondsInInt];
-    } else if (secondsInInt > 60 && secondsInInt < 3600) {
-        amount = [[NSString alloc] initWithFormat:@"%dm", (secondsInInt / 60)];
-    } else if (secondsInInt > 3600 && secondsInInt < 86400) {
-        amount = [[NSString alloc] initWithFormat:@"%dh", (secondsInInt / 3600)];
-    } else if(secondsInInt > 86400) {
-        amount = [[NSString alloc] initWithFormat:@"%d days", (secondsInInt / 86400)];
-    }
-    
-    NSString *timeAgo = [[NSString alloc] initWithFormat:@"%@", amount];
-    
-    return timeAgo;
-}
-
 #pragma mark -
 #pragma mark UITableView DataSource Methods
 
@@ -196,10 +176,9 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UILabel *timeLabel = (UILabel *)[cell viewWithTag:8];
-//        NSString *timeAgo = [self getDateDifferenceForTweetDate:tweet.tweetDate];
         
         dispatch_sync(dispatch_get_main_queue(), ^{
-            timeLabel.text = [self getDateDifferenceForTweetDate:tweet.tweetDate];
+            timeLabel.text = [tweet getDateDifferenceForTweetDate];
         });
     });
     
