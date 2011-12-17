@@ -46,7 +46,6 @@
 {
     [super viewDidLoad];
     [self performSelector:@selector(loadTimeline)];
-//    [self performSelectorInBackground:@selector(loadTimeline) withObject:nil];
 }
 
 
@@ -193,6 +192,10 @@
     });
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 @end
