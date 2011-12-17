@@ -17,5 +17,6 @@
 @property (nonatomic, strong) NSMutableArray *tweetItems;
 
 - (void)getTweetItemsForActiveLists;
+- (NSString *)getDateDifferenceForTweetDate:(NSDate *)tweetDate;
 
 @end

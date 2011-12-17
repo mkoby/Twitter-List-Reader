@@ -17,10 +17,10 @@
     
     if (!self)
         return nil;
-    NSDateFormatter* df = [[NSDateFormatter alloc] init];
-    [df setTimeStyle:NSDateFormatterFullStyle];
-    [df setFormatterBehavior:NSDateFormatterBehavior10_4];
-    [df setDateFormat:@"EEE, d LLL yyyy HH:mm:ss Z"];
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"EEE MMM dd HH:mm:ss ZZZZ yyyy"];  //set the format that matches Twitter's result…
+    [df setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    [df setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     
     self.tweetId = [attributes valueForKey:@"id_str"];
     self.username = [self getUserDataFromUserAttributes:[attributes valueForKeyPath:@"user"] forKeyValue:@"screen_name"]; 

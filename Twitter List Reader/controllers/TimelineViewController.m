@@ -122,13 +122,16 @@
         df = [[NSDateFormatter alloc] init];
         [df setTimeStyle:NSDateFormatterFullStyle];
         [df setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [df setDateFormat:@"EEE, d LLL yyyy HH:mm:ss Z"];
+        [df setDateFormat:@"EEE MMM dd HH:mm:ss ZZZZ yyyy"];
         
         sortedArray = [self.tweetItems sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
             NSDate *first = [(TweetItem *)a tweetDate];
             NSDate *second = [(TweetItem *)b tweetDate];
             return [first compare:second];
         }];
+        
+        sortedArray = [[sortedArray reverseObjectEnumerator] allObjects];
+        self.tweetItems = [[NSMutableArray alloc] initWithArray:sortedArray];
     });
     
     dispatch_group_wait(process_group, DISPATCH_TIME_FOREVER);    
@@ -137,6 +140,26 @@
     //TODO: Remove duplicates, not now but will add later
     
     [self.tableView reloadData];
+}
+
+- (NSString *)getDateDifferenceForTweetDate:(NSDate *)tweetDate {
+    NSString *amount = @"";
+    double secondsSinceTweet = [tweetDate timeIntervalSinceNow];
+    int secondsInInt = (int)(secondsSinceTweet * -1);
+    
+    if (secondsInInt < 60) {
+        amount = [[NSString alloc] initWithFormat:@"%ds", secondsInInt];
+    } else if (secondsInInt > 60 && secondsInInt < 3600) {
+        amount = [[NSString alloc] initWithFormat:@"%dm", (secondsInInt / 60)];
+    } else if (secondsInInt > 3600 && secondsInInt < 86400) {
+        amount = [[NSString alloc] initWithFormat:@"%dh", (secondsInInt / 3600)];
+    } else if(secondsInInt > 86400) {
+        amount = [[NSString alloc] initWithFormat:@"%d days", (secondsInInt / 86400)];
+    }
+    
+    NSString *timeAgo = [[NSString alloc] initWithFormat:@"%@", amount];
+    
+    return timeAgo;
 }
 
 #pragma mark -
@@ -173,27 +196,10 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UILabel *timeLabel = (UILabel *)[cell viewWithTag:8];
-        //Figure out how long ago
-        NSDate *now = [NSDate date];
-        
-        // Get the system calendar
-        NSCalendar *sysCalendar = [NSCalendar currentCalendar];
-        unsigned int unitFlags = NSHourCalendarUnit | NSMinuteCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit;        
-        NSDateComponents *conversionInfo = [sysCalendar components:unitFlags fromDate:tweet.tweetDate toDate:now  options:0];
-        NSString *amount = @"";
-        
-        if ([conversionInfo hour] > 0)
-            amount = [[NSString alloc] initWithFormat:@"%dh", [conversionInfo hour]];
-        else if([conversionInfo minute] > 0)
-            amount = [[NSString alloc] initWithFormat:@"%dm", [conversionInfo minute]];
-        else
-            amount = [[NSString alloc] initWithFormat:@"%ds", [conversionInfo second]];
-
-        NSString *timeAgo = [[NSString alloc] initWithFormat:@"%@", amount];
-        
+//        NSString *timeAgo = [self getDateDifferenceForTweetDate:tweet.tweetDate];
         
         dispatch_sync(dispatch_get_main_queue(), ^{
-            timeLabel.text = timeAgo;
+            timeLabel.text = [self getDateDifferenceForTweetDate:tweet.tweetDate];
         });
     });
     
