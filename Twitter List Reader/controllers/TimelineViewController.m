@@ -45,9 +45,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    FMDBDataAccess *dataAccess = [[FMDBDataAccess alloc] init];
-    self.activeLists = [dataAccess getActiveLists];
-    [self getTweetItemsForActiveLists];
+    [self performSelector:@selector(loadTimeline)];
+//    [self performSelectorInBackground:@selector(loadTimeline) withObject:nil];
 }
 
 
@@ -62,6 +61,17 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)loadTimeline {
+    FMDBDataAccess *dataAccess = [[FMDBDataAccess alloc] init];
+    self.activeLists = [dataAccess getActiveLists];
+    [self getTweetItemsForActiveLists];
+}
+
+- (IBAction)refreshTimeline:(id)sender {
+    [self performSelector:@selector(loadTimeline)];
+//    [self performSelectorInBackground:@selector(loadTimeline) withObject:nil];
 }
 
 - (void)getTweetItemsForActiveLists {

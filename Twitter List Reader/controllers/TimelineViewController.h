@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSArray *activeLists;
 @property (nonatomic, strong) NSMutableArray *tweetItems;
 
+- (IBAction)refreshTimeline:(id)sender;
 - (void)getTweetItemsForActiveLists;
 
 @end

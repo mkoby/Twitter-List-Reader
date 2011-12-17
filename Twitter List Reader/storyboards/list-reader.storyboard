@@ -192,7 +192,13 @@
                             <outlet property="delegate" destination="pNP-pM-94o" id="oh4-hp-wCC"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Timelline" id="54B-LO-f0j"/>
+                    <navigationItem key="navigationItem" title="Timelline" id="54B-LO-f0j">
+                        <barButtonItem key="rightBarButtonItem" image="refresh-white.png" id="Nad-kR-Rc5">
+                            <connections>
+                                <action selector="refreshTimeline:" destination="pNP-pM-94o" id="sRV-9s-JOf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="684" y="-224"/>
@@ -249,6 +255,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="refresh-white.png" width="24" height="26"/>
         <image name="settings.png" width="26" height="26"/>
         <image name="timeline.png" width="24" height="22"/>
     </resources>
@@ -271,6 +278,9 @@
         </class>
         <class className="TimelineViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TimelineViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="refreshTimeline:"/>
+            </relationships>
         </class>
         <class className="TwitterAccountsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TwitterAccountsViewController.h"/>

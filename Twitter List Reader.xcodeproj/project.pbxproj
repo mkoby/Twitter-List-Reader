@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		740F8A4B149D5718005B3534 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 740F8A49149D5718005B3534 /* refresh.png */; };
+		740F8A4C149D5718005B3534 /* refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 740F8A4A149D5718005B3534 /* refresh@2x.png */; };
+		740F8A50149D588E005B3534 /* refresh-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 740F8A4E149D588E005B3534 /* refresh-white.png */; };
+		740F8A51149D588E005B3534 /* refresh-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 740F8A4F149D588E005B3534 /* refresh-white@2x.png */; };
 		743BAA5A1486AA1A00985B95 /* TwitterAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA591486AA1A00985B95 /* TwitterAccountsViewController.m */; };
 		743BAA5D1486AA3600985B95 /* AccountListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA5C1486AA3600985B95 /* AccountListsViewController.m */; };
 		743BAA601486AA6700985B95 /* SingleTweetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 743BAA5F1486AA6700985B95 /* SingleTweetViewController.m */; };
@@ -38,6 +42,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		740F8A49149D5718005B3534 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		740F8A4A149D5718005B3534 /* refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh@2x.png"; sourceTree = "<group>"; };
+		740F8A4E149D588E005B3534 /* refresh-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh-white.png"; sourceTree = "<group>"; };
+		740F8A4F149D588E005B3534 /* refresh-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh-white@2x.png"; sourceTree = "<group>"; };
 		743BAA581486AA1A00985B95 /* TwitterAccountsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAccountsViewController.h; sourceTree = "<group>"; };
 		743BAA591486AA1A00985B95 /* TwitterAccountsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAccountsViewController.m; sourceTree = "<group>"; };
 		743BAA5B1486AA3600985B95 /* AccountListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountListsViewController.h; sourceTree = "<group>"; };
@@ -192,6 +200,10 @@
 		74EEE3E81485747E002667F8 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				740F8A4E149D588E005B3534 /* refresh-white.png */,
+				740F8A4F149D588E005B3534 /* refresh-white@2x.png */,
+				740F8A49149D5718005B3534 /* refresh.png */,
+				740F8A4A149D5718005B3534 /* refresh@2x.png */,
 				74EEE3E91485747E002667F8 /* settings.png */,
 				74EEE3EA1485747E002667F8 /* settings@2x.png */,
 				74EEE3EB1485747E002667F8 /* timeline.png */,
@@ -307,6 +319,10 @@
 				74EEE3F31485747E002667F8 /* timeline@2x.png in Resources */,
 				74EEE3F5148574BB002667F8 /* list-reader.storyboard in Resources */,
 				746A0042148E773B00D90B97 /* app.db in Resources */,
+				740F8A4B149D5718005B3534 /* refresh.png in Resources */,
+				740F8A4C149D5718005B3534 /* refresh@2x.png in Resources */,
+				740F8A50149D588E005B3534 /* refresh-white.png in Resources */,
+				740F8A51149D588E005B3534 /* refresh-white@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
