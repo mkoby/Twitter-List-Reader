@@ -12,7 +12,7 @@
 
 #define kAccountName 1
 
-@interface TwitterAccountsViewController : UITableViewController {
+@interface TwitterAccountsViewController : UITableViewController <UIAlertViewDelegate> {
     NSArray *twitterAccounts;
     UITableView *accountsTable;
     ACAccount *selectedAccount;

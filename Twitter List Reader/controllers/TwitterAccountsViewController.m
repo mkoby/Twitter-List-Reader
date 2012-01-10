@@ -36,8 +36,7 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];    
-    [self getTwitterAccounts];
+    [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -61,6 +60,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self getTwitterAccounts];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -91,13 +91,16 @@
              twitterAccounts = [account accountsWithAccountType:accountType];
              
              if (twitterAccounts.count > 0) {
-                 [self performSelectorOnMainThread:@selector(updateTable) withObject:NULL waitUntilDone:NO];
+                 [self performSelectorOnMainThread:@selector(_updateTable) withObject:NULL waitUntilDone:NO];
+             } else {
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Twitter Accounts" message:@"No Twitter accounts found on this device. Please go to the settings for this device and add a Twitter account." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                 [alert show];
              }
          }
      }];
 }
 
-- (void)updateTable {
+- (void)_updateTable {
     [accountsTable reloadData];
 }
 
@@ -196,5 +199,14 @@
     self.selectedAccount = [twitterAccounts objectAtIndex:row];
 }
 
+#pragma mark - UIAlertView delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *buttonPressed = [alertView buttonTitleAtIndex:buttonIndex];
+    
+    if ([buttonPressed isEqualToString:@"OK"]) {
+        exit(0);
+    }
+}
 
 @end
