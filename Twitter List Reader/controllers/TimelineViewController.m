@@ -45,7 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self performSelector:@selector(loadTimeline)];
+    [self performSelector:@selector(_loadTimeline)];
 }
 
 
@@ -62,21 +62,60 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)loadTimeline {
+- (void)_loadTimeline {
     FMDBDataAccess *dataAccess = [[FMDBDataAccess alloc] init];
     self.activeLists = [dataAccess getActiveLists];
     [self getTweetItemsForActiveLists];
 }
 
 - (IBAction)refreshTimeline:(id)sender {
-    [self performSelector:@selector(loadTimeline)];
-//    [self performSelectorInBackground:@selector(loadTimeline) withObject:nil];
+    [self performSelectorInBackground:@selector(_refreshTimeline) withObject:nil];
+//    [self performSelector:@selector(_refreshTimeline)];
+}
+
+- (ACAccountStore *)getApplicationAccountStore {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    ACAccountStore *accounts = appDelegate.accountStore;
+    
+    return accounts;
+}
+
+- (void)makeTwitterRequestForAccount:(ACAccount *)account toRequestURL:(NSString *)requestURL withRequestParameters:(NSMutableDictionary *)requestParameters {
+    [requestParameters setObject:@"1" forKey:@"include_rts"]; //Always use RTS since we're ALWAYS tied to an account
+    TWRequest *twitterRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:requestURL] 
+                                                  parameters:requestParameters 
+                                               requestMethod:TWRequestMethodGET];
+    twitterRequest.account = account;
+    
+    [twitterRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+        if ([urlResponse statusCode] == 200) 
+        {
+            // The response from Twitter is in JSON format
+            // Move the response into a dictionary and print
+            NSError *error;        
+            NSDictionary *returnedTweets = nil;
+            returnedTweets = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+            NSMutableArray *tweets = [[NSMutableArray alloc] init];
+            
+            if (returnedTweets != nil) {
+                for (NSDictionary *tweet in returnedTweets) {
+                    //NSLog(@"%@", tweet);
+                    TweetItem *item = [[TweetItem alloc] initWithAttributes:tweet];
+                    //NSLog(@"\n%@\n%@\n%@", item.username, item.tweet, item.imageURL);
+                    [tweets addObject:item];
+                }
+                
+                [self performSelectorInBackground:@selector(_processTweetItems:) withObject:tweets];
+            }
+            //NSLog(@"Twitter response: %@", returnedTweets);
+        }
+        else
+            NSLog(@"Twitter error, HTTP response: %i", [urlResponse statusCode]);
+    }];
 }
 
 - (void)getTweetItemsForActiveLists {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    ACAccountStore *accounts = appDelegate.accountStore;
-    self.tweetItems = [[NSMutableArray alloc] init];
+    ACAccountStore *accounts = [self getApplicationAccountStore];
     
     for (NSDictionary *list in self.activeLists) {
         ACAccount *account = [accounts accountWithIdentifier:[list valueForKeyPath:@"AccountIdentifier"]];
@@ -85,54 +124,57 @@
         NSNumber *listidnumber = [list valueForKeyPath:@"ListID"];
         NSString *listIdAsString = [[NSString alloc] initWithFormat:@"%d", [listidnumber unsignedIntValue]];
         [requestParameters setObject:listIdAsString forKey:@"list_id"];
-        [requestParameters setObject:@"1" forKey:@"include_rts"];
-        TWRequest *listsRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:listsURL] 
-                                                      parameters:requestParameters 
-                                                   requestMethod:TWRequestMethodGET];
-        listsRequest.account = account;
         
-        [listsRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-            if ([urlResponse statusCode] == 200) 
-            {
-                // The response from Twitter is in JSON format
-                // Move the response into a dictionary and print
-                NSError *error;        
-                NSDictionary *returnedTweets = nil;
-                returnedTweets = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
-                
-                if (returnedTweets != nil) {
-                    for (NSDictionary *tweet in returnedTweets) {
-                        //NSLog(@"%@", tweet);
-                        TweetItem *item = [[TweetItem alloc] initWithAttributes:tweet];
-                        //NSLog(@"\n%@\n%@\n%@", item.username, item.tweet, item.imageURL);
-                        [self.tweetItems addObject:item];
-                    }
-                    
-                    [self performSelectorInBackground:@selector(processTweetItems) withObject:nil];
-                }
-                //NSLog(@"Twitter response: %@", returnedTweets);
-            }
-            else
-                NSLog(@"Twitter error, HTTP response: %i", [urlResponse statusCode]);
-        }];
+        [self makeTwitterRequestForAccount:account toRequestURL:listsURL withRequestParameters:requestParameters];
     }
 }
 
-- (void)processTweetItems {
-    NSLog(@"%d", self.tweetItems.count);
+- (void)_refreshTimeline {
+    ACAccountStore *accounts = [self getApplicationAccountStore];
     
+    for (NSDictionary *list in self.activeLists) {
+        ACAccount *account = [accounts accountWithIdentifier:[list valueForKeyPath:@"AccountIdentifier"]];
+        NSString *listsURL = @"https://api.twitter.com/1/lists/statuses.json";
+        NSMutableDictionary *requestParameters = [[NSMutableDictionary alloc] init];
+        NSNumber *listidnumber = [list valueForKeyPath:@"ListID"];
+        NSString *listIdAsString = [[NSString alloc] initWithFormat:@"%d", [listidnumber unsignedIntValue]];
+        [requestParameters setObject:listIdAsString forKey:@"list_id"];
+        [requestParameters setObject:[[self.tweetItems objectAtIndex:0] tweetId] forKey:@"since_id"];
+        
+        [self makeTwitterRequestForAccount:account toRequestURL:listsURL withRequestParameters:requestParameters];
+    }
+    
+}
+
+- (void)_loadOlderTweets {
+    ACAccountStore *accounts = [self getApplicationAccountStore];
+    
+    for (NSDictionary *list in self.activeLists) {
+        ACAccount *account = [accounts accountWithIdentifier:[list valueForKeyPath:@"AccountIdentifier"]];
+        NSString *listsURL = @"https://api.twitter.com/1/lists/statuses.json";
+        NSMutableDictionary *requestParameters = [[NSMutableDictionary alloc] init];
+        NSNumber *listidnumber = [list valueForKeyPath:@"ListID"];
+        NSString *listIdAsString = [[NSString alloc] initWithFormat:@"%d", [listidnumber unsignedIntValue]];
+        [requestParameters setObject:listIdAsString forKey:@"list_id"];
+        [requestParameters setObject:[[self.tweetItems lastObject] tweetId] forKey:@"max_id"];
+        
+        [self makeTwitterRequestForAccount:account toRequestURL:listsURL withRequestParameters:requestParameters];
+    }
+}
+
+- (void)sortTweets {
     __block NSArray *sortedArray;
+    __block NSDateFormatter* df = nil;
+    
+    df = [[NSDateFormatter alloc] init];
+    [df setTimeStyle:NSDateFormatterFullStyle];
+    [df setFormatterBehavior:NSDateFormatterBehavior10_4];
+    [df setDateFormat:@"EEE MMM dd HH:mm:ss ZZZZ yyyy"];
+    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_group_t process_group = dispatch_group_create();
     
     dispatch_async(queue, ^{        
-        __block NSDateFormatter* df = nil;
-        
-        df = [[NSDateFormatter alloc] init];
-        [df setTimeStyle:NSDateFormatterFullStyle];
-        [df setFormatterBehavior:NSDateFormatterBehavior10_4];
-        [df setDateFormat:@"EEE MMM dd HH:mm:ss ZZZZ yyyy"];
-        
         sortedArray = [self.tweetItems sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
             NSDate *first = [(TweetItem *)a tweetDate];
             NSDate *second = [(TweetItem *)b tweetDate];
@@ -144,10 +186,36 @@
     });
     
     dispatch_group_wait(process_group, DISPATCH_TIME_FOREVER);    
-    dispatch_release(process_group); 
+    dispatch_release(process_group);
+}
+
+- (void)addTweetsToTweetItems:(NSArray *)tweets {
+    if (self.tweetItems == nil) {
+        self.tweetItems = [[NSMutableArray alloc] init];
+    }
     
-    //TODO: Remove duplicates, not now but will add later
     
+    for (TweetItem *tweet in tweets) {
+        NSString *currentId = tweet.tweetId;
+        BOOL hasTweet = NO;
+        
+        for (TweetItem *storedTweet in self.tweetItems) {
+            if ([storedTweet.tweetId isEqualToString:currentId]) {
+                hasTweet = YES;
+            }
+        }
+        
+        if (!hasTweet) {
+            [self.tweetItems addObject:tweet];
+        }
+    }
+    
+    [self sortTweets];
+}
+
+- (void)_processTweetItems:(NSMutableArray *)tweets {
+    [self addTweetsToTweetItems:tweets];
+    NSLog(@"Tweet Count: %i", [self.tweetItems count]);
     [self.tableView reloadData];
 }
 
@@ -168,6 +236,10 @@
     
     NSUInteger row = [indexPath row];
     TweetItem *tweet = [self.tweetItems objectAtIndex:row];
+    
+    if ([self.tweetItems lastObject] == tweet) {
+        [self performSelectorInBackground:@selector(_loadOlderTweets) withObject:nil];
+    }
     
     UILabel *nameLabel = (UILabel *)[cell viewWithTag:2];
     nameLabel.text = tweet.username;

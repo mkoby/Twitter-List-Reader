@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Accounts/Accounts.h>
+#import <Twitter/Twitter.h>
 
 @interface TimelineViewController : UITableViewController {
     NSArray *activeLists;
@@ -17,6 +19,9 @@
 @property (nonatomic, strong) NSMutableArray *tweetItems;
 
 - (IBAction)refreshTimeline:(id)sender;
+
 - (void)getTweetItemsForActiveLists;
+- (ACAccountStore *)getApplicationAccountStore;
+- (void)makeTwitterRequestForAccount:(ACAccount *)account toRequestURL:(NSString *)requestURL withRequestParameters:(NSMutableDictionary *)requestParameters;
 
 @end
