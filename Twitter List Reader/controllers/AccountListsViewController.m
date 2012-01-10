@@ -51,6 +51,13 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    
+    self.account = nil;
+    self.accountIdentifier = nil;
+    self.accountLists = nil;
+    self.sortedKeys = nil;
+    self.listsData = nil;
+    self.listsTable = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
