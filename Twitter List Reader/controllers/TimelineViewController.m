@@ -255,7 +255,10 @@
     NSUInteger row = [indexPath row];
     TweetItem *tweet = [self.tweetItems objectAtIndex:row];
     
-    if ([self.tweetItems lastObject] == tweet) {
+    float currentRow = (float)row;
+    float totalRows = (float)self.tweetItems.count;
+    
+    if ((currentRow / totalRows) > .85) {
         [self performSelectorInBackground:@selector(_loadOlderTweets) withObject:nil];
     }
     
