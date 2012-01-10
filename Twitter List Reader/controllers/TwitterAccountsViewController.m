@@ -85,11 +85,19 @@
     ACAccountStore *account = appDelegate.accountStore;
     ACAccountType *accountType = [account accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
     
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    UIBarButtonItem * barButton = 
+    [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+    [[self navigationItem] setRightBarButtonItem:barButton];
+    activityIndicator.hidesWhenStopped = YES;
+    [activityIndicator startAnimating];
+    
     [account requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
          // Did user allow us access?
          if (granted == YES) {
              // Populate array with all available Twitter accounts       
              twitterAccounts = [account accountsWithAccountType:accountType];
+             [activityIndicator stopAnimating];
              
              if (twitterAccounts.count > 0) {
                  [self performSelectorOnMainThread:@selector(_updateTable) withObject:NULL waitUntilDone:NO];

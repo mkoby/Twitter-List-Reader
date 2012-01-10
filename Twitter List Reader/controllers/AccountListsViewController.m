@@ -95,6 +95,13 @@
                                           requestMethod:TWRequestMethodGET];
     [request setAccount:twitterAccount];
     
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    UIBarButtonItem * barButton = 
+    [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+    [[self navigationItem] setRightBarButtonItem:barButton];
+    activityIndicator.hidesWhenStopped = YES;
+    [activityIndicator startAnimating];
+    
     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
         if (error != nil) {
             NSLog(@"%@", error);
@@ -104,27 +111,28 @@
         if ([urlResponse statusCode] == 200) {
             NSError *jsonError;
             listsData = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&jsonError];
-            
-            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            dispatch_group_t process_group = dispatch_group_create();
-            
-            dispatch_sync(queue, ^{
-                NSMutableArray *lists = [[NSMutableArray alloc] init];
-
-                for (NSDictionary *list in listsData) {
-                    [lists addObject:[[TwitterList alloc] initWithAttributes:list]];
-                }
+            if (listsData.count > 0) {
+                dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+                dispatch_group_t process_group = dispatch_group_create();
                 
-                self.accountLists = [TwitterList createNSDictionaryOfListsFromNSArray:lists];
-                self.sortedKeys =[[self.accountLists allKeys] sortedArrayUsingSelector:@selector(compare:)];
-            });
-            
-            dispatch_group_wait(process_group, DISPATCH_TIME_FOREVER);    
-            dispatch_release(process_group);
-            
-            if (self.accountLists.count > 0) {
+                dispatch_sync(queue, ^{
+                    NSMutableArray *lists = [[NSMutableArray alloc] init];
+                    
+                    for (NSDictionary *list in listsData) {
+                        [lists addObject:[[TwitterList alloc] initWithAttributes:list]];
+                    }
+                    
+                    self.accountLists = [TwitterList createNSDictionaryOfListsFromNSArray:lists];
+                    self.sortedKeys =[[self.accountLists allKeys] sortedArrayUsingSelector:@selector(compare:)];
+                });
+                
+                dispatch_group_wait(process_group, DISPATCH_TIME_FOREVER);    
+                dispatch_release(process_group);
+                
+                [activityIndicator stopAnimating];
                 [self performSelectorOnMainThread:@selector(updateTable) withObject:NULL waitUntilDone:NO];
             } else {
+                [activityIndicator stopAnimating];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Lists" message:@"This account is not following any lists." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [alert show];
             }

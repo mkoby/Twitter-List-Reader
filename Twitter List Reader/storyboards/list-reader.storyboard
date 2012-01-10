@@ -190,7 +190,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Timelline" id="54B-LO-f0j">
-                        <barButtonItem key="rightBarButtonItem" image="refresh-white.png" id="Nad-kR-Rc5">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Nad-kR-Rc5">
                             <connections>
                                 <action selector="refreshTimeline:" destination="pNP-pM-94o" id="sRV-9s-JOf"/>
                             </connections>
@@ -252,7 +252,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="refresh-white.png" width="24" height="26"/>
         <image name="settings.png" width="26" height="26"/>
         <image name="timeline.png" width="24" height="22"/>
     </resources>
