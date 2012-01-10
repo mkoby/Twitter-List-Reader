@@ -39,7 +39,15 @@
             [publicLists addObject:list];
     }
     
-    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] initWithObjectsAndKeys:privateLists,@"Private", publicLists,@"Public", nil];    
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    
+    if (publicLists.count > 0 && privateLists.count > 0) {
+        dictionary = [[NSMutableDictionary alloc] initWithObjectsAndKeys:privateLists,@"Private", publicLists,@"Public", nil];
+    } else if (publicLists.count > 0) {
+        dictionary = [[NSMutableDictionary alloc] initWithObjectsAndKeys:publicLists,@"Public", nil];
+    } else if (privateLists.count > 0) {
+        dictionary = [[NSMutableDictionary alloc] initWithObjectsAndKeys:privateLists,@"Private", nil];
+    }
     
     return dictionary;
 }

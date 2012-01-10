@@ -60,6 +60,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    self.selectedAccount = nil;
     [self getTwitterAccounts];
 }
 

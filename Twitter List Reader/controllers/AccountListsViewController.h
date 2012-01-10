@@ -10,7 +10,7 @@
 #import <Accounts/Accounts.h>
 #import <Twitter/Twitter.h>
 
-@interface AccountListsViewController : UITableViewController {
+@interface AccountListsViewController : UITableViewController <UIAlertViewDelegate> {
     UITableView *listsTable;
     ACAccount *account;
     NSString *accountIdentifier;

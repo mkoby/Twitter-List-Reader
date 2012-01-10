@@ -122,7 +122,13 @@
             dispatch_group_wait(process_group, DISPATCH_TIME_FOREVER);    
             dispatch_release(process_group);
             
-            [self performSelectorOnMainThread:@selector(updateTable) withObject:NULL waitUntilDone:NO];
+            if (self.accountLists.count > 0) {
+                [self performSelectorOnMainThread:@selector(updateTable) withObject:NULL waitUntilDone:NO];
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Lists" message:@"This account is not following any lists." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            
         } else {
             NSLog(@"Response Code: %i", [urlResponse statusCode]);
         }
@@ -262,6 +268,16 @@
     
     //Deselect this row
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - UIAlertView delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *buttonPressed = [alertView buttonTitleAtIndex:buttonIndex];
+    
+    if ([buttonPressed isEqualToString:@"OK"]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 @end
