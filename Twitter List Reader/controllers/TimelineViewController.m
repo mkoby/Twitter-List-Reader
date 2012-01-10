@@ -45,9 +45,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self performSelector:@selector(_loadTimeline)];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    FMDBDataAccess *dataAccess = [[FMDBDataAccess alloc] init];
+    self.activeLists = [dataAccess getActiveLists];
+    
+    if (self.activeLists.count > 0) {
+        [self performSelector:@selector(_loadTimeline)];
+    } else {
+        self.tabBarController.selectedIndex = 1; //Goto settings Tab if nothing no lists in DB
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    self.tweetItems = nil;
+}
 
 - (void)viewDidUnload
 {
@@ -63,8 +80,6 @@
 }
 
 - (void)_loadTimeline {
-    FMDBDataAccess *dataAccess = [[FMDBDataAccess alloc] init];
-    self.activeLists = [dataAccess getActiveLists];
     [self getTweetItemsForActiveLists];
 }
 
@@ -131,6 +146,7 @@
 
 - (void)_refreshTimeline {
     ACAccountStore *accounts = [self getApplicationAccountStore];
+    TweetItem *newestTweet = [self.tweetItems objectAtIndex:0];
     
     for (NSDictionary *list in self.activeLists) {
         ACAccount *account = [accounts accountWithIdentifier:[list valueForKeyPath:@"AccountIdentifier"]];
@@ -139,7 +155,7 @@
         NSNumber *listidnumber = [list valueForKeyPath:@"ListID"];
         NSString *listIdAsString = [[NSString alloc] initWithFormat:@"%d", [listidnumber unsignedIntValue]];
         [requestParameters setObject:listIdAsString forKey:@"list_id"];
-        [requestParameters setObject:[[self.tweetItems objectAtIndex:0] tweetId] forKey:@"since_id"];
+        [requestParameters setObject:newestTweet.tweetId forKey:@"since_id"];
         
         [self makeTwitterRequestForAccount:account toRequestURL:listsURL withRequestParameters:requestParameters];
     }
@@ -148,6 +164,7 @@
 
 - (void)_loadOlderTweets {
     ACAccountStore *accounts = [self getApplicationAccountStore];
+    TweetItem *oldestTweet = [self.tweetItems lastObject];
     
     for (NSDictionary *list in self.activeLists) {
         ACAccount *account = [accounts accountWithIdentifier:[list valueForKeyPath:@"AccountIdentifier"]];
@@ -156,7 +173,7 @@
         NSNumber *listidnumber = [list valueForKeyPath:@"ListID"];
         NSString *listIdAsString = [[NSString alloc] initWithFormat:@"%d", [listidnumber unsignedIntValue]];
         [requestParameters setObject:listIdAsString forKey:@"list_id"];
-        [requestParameters setObject:[[self.tweetItems lastObject] tweetId] forKey:@"max_id"];
+        [requestParameters setObject:oldestTweet.tweetId forKey:@"max_id"];
         
         [self makeTwitterRequestForAccount:account toRequestURL:listsURL withRequestParameters:requestParameters];
     }
@@ -217,6 +234,7 @@
     [self addTweetsToTweetItems:tweets];
     NSLog(@"Tweet Count: %i", [self.tweetItems count]);
     [self.tableView reloadData];
+    self.tableView.hidden = NO;
 }
 
 #pragma mark -
