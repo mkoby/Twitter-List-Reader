@@ -232,7 +232,6 @@
 
 - (void)_processTweetItems:(NSMutableArray *)tweets {
     [self addTweetsToTweetItems:tweets];
-    NSLog(@"Tweet Count: %i", [self.tweetItems count]);
     [self.tableView reloadData];
     self.tableView.hidden = NO;
 }
