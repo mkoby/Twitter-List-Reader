@@ -25,6 +25,9 @@
 		749E49C3148D344D009ADD45 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 749E49BF148D344D009ADD45 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		749E49C6148D3471009ADD45 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 749E49C5148D3471009ADD45 /* libsqlite3.dylib */; };
 		74A2798C148FCE1100B29EDA /* FMDBDataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A2798B148FCE1100B29EDA /* FMDBDataAccess.m */; };
+		74DEBAE114C48A7500A83E65 /* twitter_list_reader_ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 74DEBADE14C48A7500A83E65 /* twitter_list_reader_ipad.png */; };
+		74DEBAE214C48A7500A83E65 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 74DEBADF14C48A7500A83E65 /* icon.png */; };
+		74DEBAE314C48A7500A83E65 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74DEBAE014C48A7500A83E65 /* icon@2x.png */; };
 		74EEE3D114857439002667F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D014857439002667F8 /* UIKit.framework */; };
 		74EEE3D314857439002667F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D214857439002667F8 /* Foundation.framework */; };
 		74EEE3D514857439002667F8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74EEE3D414857439002667F8 /* CoreGraphics.framework */; };
@@ -70,6 +73,9 @@
 		749E49C5148D3471009ADD45 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		74A2798A148FCE1100B29EDA /* FMDBDataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDBDataAccess.h; sourceTree = "<group>"; };
 		74A2798B148FCE1100B29EDA /* FMDBDataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBDataAccess.m; sourceTree = "<group>"; };
+		74DEBADE14C48A7500A83E65 /* twitter_list_reader_ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter_list_reader_ipad.png; sourceTree = "<group>"; };
+		74DEBADF14C48A7500A83E65 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		74DEBAE014C48A7500A83E65 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		74EEE3CC14857439002667F8 /* Twitter List Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twitter List Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74EEE3D014857439002667F8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		74EEE3D214857439002667F8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -200,6 +206,9 @@
 		74EEE3E81485747E002667F8 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				74DEBADE14C48A7500A83E65 /* twitter_list_reader_ipad.png */,
+				74DEBADF14C48A7500A83E65 /* icon.png */,
+				74DEBAE014C48A7500A83E65 /* icon@2x.png */,
 				740F8A4E149D588E005B3534 /* refresh-white.png */,
 				740F8A4F149D588E005B3534 /* refresh-white@2x.png */,
 				740F8A49149D5718005B3534 /* refresh.png */,
@@ -288,7 +297,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0420;
-				ORGANIZATIONNAME = Teabrick;
+				ORGANIZATIONNAME = "Michael Koby";
 			};
 			buildConfigurationList = 74EEE3C614857439002667F8 /* Build configuration list for PBXProject "Twitter List Reader" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -323,6 +332,9 @@
 				740F8A4C149D5718005B3534 /* refresh@2x.png in Resources */,
 				740F8A50149D588E005B3534 /* refresh-white.png in Resources */,
 				740F8A51149D588E005B3534 /* refresh-white@2x.png in Resources */,
+				74DEBAE114C48A7500A83E65 /* twitter_list_reader_ipad.png in Resources */,
+				74DEBAE214C48A7500A83E65 /* icon.png in Resources */,
+				74DEBAE314C48A7500A83E65 /* icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

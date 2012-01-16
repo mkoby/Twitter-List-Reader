@@ -3,7 +3,7 @@
 //  Twitter List Reader
 //
 //  Created by Michael Koby on 11/28/11.
-//  Copyright (c) 2011 Teabrick. All rights reserved.
+//  Copyright (c) 2011 Michael Koby. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
