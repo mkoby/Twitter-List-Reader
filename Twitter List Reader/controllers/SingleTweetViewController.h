@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TweetItem.h"
 
-@interface SingleTweetViewController : UIViewController
+@interface SingleTweetViewController : UIViewController {
+    TweetItem *selectedTweet;
+    UIImage *avatarImage;
+}
+
+@property (nonatomic, strong) TweetItem *selectedTweet;
+@property (nonatomic, strong) UIImage *avatarImage;
 
 @end

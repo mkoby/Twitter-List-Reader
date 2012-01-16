@@ -10,9 +10,10 @@
 #import "FMDBDataAccess.h"
 #import "TwitterClient.h"
 #import "TweetItem.h"
+#import "SingleTweetViewController.h"
 
 @implementation TimelineViewController
-@synthesize activeLists, tweetItems;
+@synthesize activeLists, tweetItems, selectedTweet;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -75,6 +76,17 @@
     self.tweetItems = nil;
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    SingleTweetViewController *stvc = (SingleTweetViewController *)[segue destinationViewController];
+    UITableViewCell *selectedCell = (UITableViewCell *)sender;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:selectedCell];
+    NSInteger row = [indexPath row];
+    stvc.selectedTweet = [self.tweetItems objectAtIndex:row];
+    
+    UIImageView *avatarImageView = (UIImageView *)[selectedCell viewWithTag:1];
+    stvc.avatarImage = [avatarImageView image];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
@@ -87,7 +99,6 @@
 
 - (IBAction)refreshTimeline:(id)sender {
     [self performSelectorInBackground:@selector(_refreshTimeline) withObject:nil];
-//    [self performSelector:@selector(_refreshTimeline)];
 }
 
 - (ACAccountStore *)getApplicationAccountStore {
@@ -281,7 +292,7 @@
         UILabel *timeLabel = (UILabel *)[cell viewWithTag:8];
         
         dispatch_sync(dispatch_get_main_queue(), ^{
-            timeLabel.text = [tweet getDateDifferenceForTweetDate];
+            timeLabel.text = [tweet getDateDifferenceForTweetDateWithFullUnitsText:NO];
         });
     });
     
@@ -289,7 +300,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    //[self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    NSUInteger row = [indexPath row];
+    self.selectedTweet = [self.tweetItems objectAtIndex:row];
 }
 
 @end

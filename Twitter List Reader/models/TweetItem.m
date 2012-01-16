@@ -37,17 +37,33 @@
     return [attributes valueForKeyPath:keyValue];
 }
 
-- (NSString *)getDateDifferenceForTweetDate {
+- (NSString *)getDateDifferenceForTweetDateWithFullUnitsText:(BOOL)fullText {
     NSString *amount = @"";
     double secondsSinceTweet = [self.tweetDate timeIntervalSinceNow];
     int secondsInInt = (int)(secondsSinceTweet * -1);
+    NSString *unitText = @"";
     
     if (secondsInInt < 60) {
-        amount = [[NSString alloc] initWithFormat:@"%ds", secondsInInt];
+        if (fullText)
+            unitText = @" seconds";
+        else
+            unitText = @"s";
+        
+        amount = [[NSString alloc] initWithFormat:@"%d%@", secondsInInt, unitText];
     } else if (secondsInInt > 60 && secondsInInt < 3600) {
-        amount = [[NSString alloc] initWithFormat:@"%dm", (secondsInInt / 60)];
+        if (fullText)
+            unitText = @" minutes";
+        else
+            unitText = @"m";
+        
+        amount = [[NSString alloc] initWithFormat:@"%d%@", (secondsInInt / 60), unitText];
     } else if (secondsInInt > 3600 && secondsInInt < 86400) {
-        amount = [[NSString alloc] initWithFormat:@"%dh", (secondsInInt / 3600)];
+        if (fullText)
+            unitText = @" hours";
+        else
+            unitText = @"h";
+        
+        amount = [[NSString alloc] initWithFormat:@"%d%@", (secondsInInt / 3600), unitText];
     } else if(secondsInInt > 86400) {
         amount = [[NSString alloc] initWithFormat:@"%d days", (secondsInInt / 86400)];
     }

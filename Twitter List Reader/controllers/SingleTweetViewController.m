@@ -9,6 +9,7 @@
 #import "SingleTweetViewController.h"
 
 @implementation SingleTweetViewController
+@synthesize selectedTweet, avatarImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,13 +37,28 @@
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"\nUsername: %@\nTweet: %@", self.selectedTweet.username, self.selectedTweet.tweet);
+    
+    UIImageView *avatarImageView = (UIImageView *)[self.view viewWithTag:1];
+    avatarImageView.image = avatarImage;
+    
+    UILabel *userNameLabel = (UILabel *)[self.view viewWithTag:2];
+    userNameLabel.text = selectedTweet.username;
+    
+    UILabel *timeSinceTweetLabel = (UILabel *)[self.view viewWithTag:4];
+    NSString *timeSinceTweetText = [[NSString alloc] initWithFormat:@"%@ ago", [selectedTweet getDateDifferenceForTweetDateWithFullUnitsText:YES]];
+    timeSinceTweetLabel.text = timeSinceTweetText;
+    
+    UITextView *tweetText = (UITextView *)[self.view viewWithTag:8];
+    [tweetText setDataDetectorTypes:UIDataDetectorTypeLink];
+    [tweetText setText:selectedTweet.tweet];
 }
-*/
+
 
 - (void)viewDidUnload
 {
