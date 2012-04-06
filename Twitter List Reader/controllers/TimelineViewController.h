@@ -14,6 +14,7 @@
 @interface TimelineViewController : UITableViewController {
     NSArray *activeLists;
     NSMutableArray *tweetItems;
+    NSMutableDictionary *imageCache;
     TweetItem *selectedTweet;
 }
 

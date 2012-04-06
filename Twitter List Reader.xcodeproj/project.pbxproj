@@ -296,7 +296,7 @@
 		74EEE3C314857439002667F8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "Michael Koby";
 			};
 			buildConfigurationList = 74EEE3C614857439002667F8 /* Build configuration list for PBXProject "Twitter List Reader" */;

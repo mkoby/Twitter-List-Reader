@@ -26,6 +26,7 @@
 
 - (void)didReceiveMemoryWarning
 {
+    NSLog(@"Received memory warning");
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
@@ -43,9 +44,10 @@
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    
+    imageCache = [NSMutableDictionary dictionary];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -70,6 +72,10 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    
+    NSLog(@"View is unloading");
+    imageCache = nil;
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     self.activeLists = nil;
@@ -249,6 +255,18 @@
     self.tableView.hidden = NO;
 }
 
+- (void)_getImageWithURL:(NSString *)url withRowAtIndexPath:(NSIndexPath *)indexPath {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+        UIImage *avatarImage = [UIImage imageWithData:imageData];
+        [imageCache setObject:avatarImage forKey:indexPath];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                                  withRowAnimation:UITableViewRowAnimationNone];
+        });
+    });
+}
+
 #pragma mark -
 #pragma mark UITableView DataSource Methods
 
@@ -280,13 +298,14 @@
     UILabel *tweetLabel = (UILabel *)[cell viewWithTag:4];
     tweetLabel.text = tweet.tweet;
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage *avatarImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tweet.imageURL]]];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            UIImageView *avatarImageView = (UIImageView *)[cell viewWithTag:1];
-            avatarImageView.image = avatarImage;
-        });
-    });
+    if ([imageCache objectForKey:indexPath]) {
+        UIImage *image = [imageCache objectForKey:indexPath];
+        cell.imageView.image = image;
+    } else {
+        cell.imageView.image = nil;
+        [self _getImageWithURL:tweet.imageURL
+            withRowAtIndexPath:indexPath];
+    }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UILabel *timeLabel = (UILabel *)[cell viewWithTag:8];
