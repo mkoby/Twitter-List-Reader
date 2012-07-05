@@ -121,6 +121,8 @@
                                                requestMethod:TWRequestMethodGET];
     twitterRequest.account = account;
     
+    //Move Twitter specific stuff to Twitter API handling model
+    //Leave View Controller stuff here.
     [twitterRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
         if ([urlResponse statusCode] == 200) 
         {
@@ -139,7 +141,9 @@
                     [tweets addObject:item];
                 }
                 
-                [self performSelectorInBackground:@selector(_processTweetItems:) withObject:tweets];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                    [self _processTweetItems:tweets]; 
+                });
             }
             //NSLog(@"Twitter response: %@", returnedTweets);
         }
@@ -250,9 +254,12 @@
 }
 
 - (void)_processTweetItems:(NSMutableArray *)tweets {
-    [self addTweetsToTweetItems:tweets];
-    [self.tableView reloadData];
-    self.tableView.hidden = NO;
+    [self addTweetsToTweetItems:tweets]; //expensive operation
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        self.tableView.hidden = NO; 
+    });
 }
 
 - (void)_getImageWithURL:(NSString *)url withRowAtIndexPath:(NSIndexPath *)indexPath {

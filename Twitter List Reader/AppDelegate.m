@@ -16,9 +16,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.accountStore = [[ACAccountStore alloc] init];
+    [self prepareAccountStore];
     [self prepareDatabase];
     return YES;
+}
+
+- (void)prepareAccountStore {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onAccountStoreChanged:)
+                                                 name: ACAccountStoreDidChangeNotification
+                                               object:nil];
+    self.accountStore = [[ACAccountStore alloc] init];
+}
+
+- (void)onAccountStoreChanged:(NSNotification *)note {
+    self.accountStore = [[ACAccountStore alloc] init];
 }
 
 - (void)prepareDatabase {
