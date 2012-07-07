@@ -84,4 +84,21 @@
     return output;
 }
 
++ (NSMutableDictionary *)getRequestParamentersForListId:(NSString *)listId withOldestTweet:(NSString *)oldestTweet withLatestTweet:(NSString *)newestTweet {
+    
+    NSMutableDictionary *requestParameters = [[NSMutableDictionary alloc] init];
+    [requestParameters setObject:listId forKey:@"list_id"];
+    
+    if (oldestTweet) {
+        [requestParameters setObject:oldestTweet forKey:@"max_id"];
+    }
+    
+    if (newestTweet) {
+        [requestParameters setObject:newestTweet forKey:@"since_id"];
+    }
+    
+    return requestParameters;
+    
+}
+
 @end

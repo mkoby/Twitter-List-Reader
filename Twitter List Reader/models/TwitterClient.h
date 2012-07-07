@@ -17,5 +17,6 @@
 
 + (NSDictionary *)getListsForAccount:(ACAccount *)account;
 + (NSArray *)getTimelineForListWithId:(NSUInteger)listId forAccountWithIdentifier:(NSString *)accountIdentifier;
++ (NSMutableDictionary *)getRequestParamentersForListId:(NSString *)listId withOldestTweet:(NSString *)oldestTweet withLatestTweet:(NSString *)newestTweet;
 
 @end

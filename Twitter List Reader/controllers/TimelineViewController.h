@@ -26,6 +26,6 @@
 
 - (void)getTweetItemsForActiveLists;
 - (ACAccountStore *)getApplicationAccountStore;
-- (void)makeTwitterRequestForAccount:(ACAccount *)account toRequestURL:(NSString *)requestURL withRequestParameters:(NSMutableDictionary *)requestParameters;
+- (void)makeTwitterRequestForAccount:(ACAccount *)account withRequestParameters:(NSMutableDictionary *)requestParameters;
 
 @end

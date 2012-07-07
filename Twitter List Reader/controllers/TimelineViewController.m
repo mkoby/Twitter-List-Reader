@@ -114,9 +114,10 @@
     return accounts;
 }
 
-- (void)makeTwitterRequestForAccount:(ACAccount *)account toRequestURL:(NSString *)requestURL withRequestParameters:(NSMutableDictionary *)requestParameters {
+- (void)makeTwitterRequestForAccount:(ACAccount *)account withRequestParameters:(NSMutableDictionary *)requestParameters {
+    NSString *listsURL = @"https://api.twitter.com/1/lists/statuses.json";
     [requestParameters setObject:@"1" forKey:@"include_rts"]; //Always use RTS since we're ALWAYS tied to an account
-    TWRequest *twitterRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:requestURL] 
+    TWRequest *twitterRequest = [[TWRequest alloc] initWithURL:[NSURL URLWithString:listsURL] 
                                                   parameters:requestParameters 
                                                requestMethod:TWRequestMethodGET];
     twitterRequest.account = account;
@@ -157,13 +158,9 @@
     
     for (NSDictionary *list in self.activeLists) {
         ACAccount *account = [accounts accountWithIdentifier:[list valueForKeyPath:@"AccountIdentifier"]];
-        NSString *listsURL = @"https://api.twitter.com/1/lists/statuses.json";
-        NSMutableDictionary *requestParameters = [[NSMutableDictionary alloc] init];
-        NSNumber *listidnumber = [list valueForKeyPath:@"ListID"];
-        NSString *listIdAsString = [[NSString alloc] initWithFormat:@"%d", [listidnumber unsignedIntValue]];
-        [requestParameters setObject:listIdAsString forKey:@"list_id"];
+        NSMutableDictionary *requestParameters = [TwitterClient getRequestParamentersForListId:[[NSString alloc] initWithFormat:@"%d", [[list valueForKeyPath:@"ListID"] unsignedIntValue]] withOldestTweet:nil withLatestTweet:nil];
         
-        [self makeTwitterRequestForAccount:account toRequestURL:listsURL withRequestParameters:requestParameters];
+        [self makeTwitterRequestForAccount:account withRequestParameters:requestParameters];
     }
 }
 
@@ -172,15 +169,10 @@
     TweetItem *newestTweet = [self.tweetItems objectAtIndex:0];
     
     for (NSDictionary *list in self.activeLists) {
-        ACAccount *account = [accounts accountWithIdentifier:[list valueForKeyPath:@"AccountIdentifier"]];
-        NSString *listsURL = @"https://api.twitter.com/1/lists/statuses.json";
-        NSMutableDictionary *requestParameters = [[NSMutableDictionary alloc] init];
-        NSNumber *listidnumber = [list valueForKeyPath:@"ListID"];
-        NSString *listIdAsString = [[NSString alloc] initWithFormat:@"%d", [listidnumber unsignedIntValue]];
-        [requestParameters setObject:listIdAsString forKey:@"list_id"];
-        [requestParameters setObject:newestTweet.tweetId forKey:@"since_id"];
+        ACAccount *account = [accounts accountWithIdentifier:[list valueForKeyPath:@"AccountIdentifier"]];        
+        NSMutableDictionary *requestParameters = [TwitterClient getRequestParamentersForListId:[[NSString alloc] initWithFormat:@"%d", [[list valueForKeyPath:@"ListID"] unsignedIntValue]] withOldestTweet:nil withLatestTweet:( newestTweet ? newestTweet.tweetId : nil ) ];
         
-        [self makeTwitterRequestForAccount:account toRequestURL:listsURL withRequestParameters:requestParameters];
+        [self makeTwitterRequestForAccount:account withRequestParameters:requestParameters];
     }
     
 }
@@ -190,15 +182,10 @@
     TweetItem *oldestTweet = [self.tweetItems lastObject];
     
     for (NSDictionary *list in self.activeLists) {
-        ACAccount *account = [accounts accountWithIdentifier:[list valueForKeyPath:@"AccountIdentifier"]];
-        NSString *listsURL = @"https://api.twitter.com/1/lists/statuses.json";
-        NSMutableDictionary *requestParameters = [[NSMutableDictionary alloc] init];
-        NSNumber *listidnumber = [list valueForKeyPath:@"ListID"];
-        NSString *listIdAsString = [[NSString alloc] initWithFormat:@"%d", [listidnumber unsignedIntValue]];
-        [requestParameters setObject:listIdAsString forKey:@"list_id"];
-        [requestParameters setObject:oldestTweet.tweetId forKey:@"max_id"];
+        ACAccount *account = [accounts accountWithIdentifier:[list valueForKeyPath:@"AccountIdentifier"]];        
+        NSMutableDictionary *requestParameters = [TwitterClient getRequestParamentersForListId:[[NSString alloc] initWithFormat:@"%d", [[list valueForKeyPath:@"ListID"] unsignedIntValue]] withOldestTweet:oldestTweet.tweetId withLatestTweet:nil ];
         
-        [self makeTwitterRequestForAccount:account toRequestURL:listsURL withRequestParameters:requestParameters];
+        [self makeTwitterRequestForAccount:account withRequestParameters:requestParameters];
     }
 }
 
