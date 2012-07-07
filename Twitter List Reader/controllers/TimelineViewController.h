@@ -13,13 +13,13 @@
 
 @interface TimelineViewController : UITableViewController {
     NSArray *activeLists;
-    NSMutableArray *tweetItems;
+    NSArray *tweetItems;
     NSMutableDictionary *imageCache;
     TweetItem *selectedTweet;
 }
 
 @property (nonatomic, strong) NSArray *activeLists;
-@property (nonatomic, strong) NSMutableArray *tweetItems;
+@property (nonatomic, strong) NSArray *tweetItems;
 @property (nonatomic, strong) TweetItem *selectedTweet;
 
 - (IBAction)refreshTimeline:(id)sender;

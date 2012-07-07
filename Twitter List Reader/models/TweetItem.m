@@ -73,4 +73,59 @@
     return timeAgo;
 }
 
++ (NSArray *)sortTweets:(NSArray *)tweets {
+    __block NSArray *sortedArray;
+    __block NSDateFormatter* df = nil;
+    
+    df = [[NSDateFormatter alloc] init];
+    [df setTimeStyle:NSDateFormatterFullStyle];
+    [df setFormatterBehavior:NSDateFormatterBehavior10_4];
+    [df setDateFormat:@"EEE MMM dd HH:mm:ss ZZZZ yyyy"];
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_group_t process_group = dispatch_group_create();
+    
+    dispatch_sync(queue, ^{        
+        sortedArray = [tweets sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            NSDate *first = [(TweetItem *)a tweetDate];
+            NSDate *second = [(TweetItem *)b tweetDate];
+            return [first compare:second];
+        }];
+        
+        sortedArray = [[sortedArray reverseObjectEnumerator] allObjects];;
+    });
+    
+    dispatch_group_wait(process_group, DISPATCH_TIME_FOREVER);    
+    dispatch_release(process_group);
+    
+    return sortedArray;
+}
+
++ (NSArray *)addTweets:(NSArray *)newTweets to:(NSMutableArray *)tweets {
+    NSMutableArray *newTweetsArray;
+    if (tweets == nil) {
+        newTweetsArray = [[NSMutableArray alloc] init];
+    } else {
+        newTweetsArray = [[NSMutableArray alloc] initWithArray:tweets];
+    }
+    
+    
+    for (TweetItem *tweet in newTweets) {
+        NSString *currentId = tweet.tweetId;
+        BOOL hasTweet = NO;
+        
+        for (TweetItem *storedTweet in tweets) {
+            if ([storedTweet.tweetId isEqualToString:currentId]) {
+                hasTweet = YES;
+            }
+        }
+        
+        if (!hasTweet) {
+            [newTweetsArray addObject:tweet];
+        }
+    }
+    
+    return newTweetsArray;
+}
+
 @end

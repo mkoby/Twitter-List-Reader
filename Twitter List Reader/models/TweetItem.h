@@ -26,4 +26,7 @@
 - (NSString *)getUserDataFromUserAttributes:(NSDictionary *)attributes forKeyValue:(NSString *)keyValue;
 - (NSString *)getDateDifferenceForTweetDateWithFullUnitsText:(BOOL)fullText;
 
++ (NSArray *)sortTweets:(NSArray *)tweets;
++ (NSArray *)addTweets:(NSArray *)newTweets to:(NSArray *)tweets;
+
 @end

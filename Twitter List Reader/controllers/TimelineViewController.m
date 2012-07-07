@@ -189,59 +189,10 @@
     }
 }
 
-- (void)sortTweets {
-    __block NSArray *sortedArray;
-    __block NSDateFormatter* df = nil;
-    
-    df = [[NSDateFormatter alloc] init];
-    [df setTimeStyle:NSDateFormatterFullStyle];
-    [df setFormatterBehavior:NSDateFormatterBehavior10_4];
-    [df setDateFormat:@"EEE MMM dd HH:mm:ss ZZZZ yyyy"];
-    
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_group_t process_group = dispatch_group_create();
-    
-    dispatch_async(queue, ^{        
-        sortedArray = [self.tweetItems sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-            NSDate *first = [(TweetItem *)a tweetDate];
-            NSDate *second = [(TweetItem *)b tweetDate];
-            return [first compare:second];
-        }];
-        
-        sortedArray = [[sortedArray reverseObjectEnumerator] allObjects];
-        self.tweetItems = [[NSMutableArray alloc] initWithArray:sortedArray];
-    });
-    
-    dispatch_group_wait(process_group, DISPATCH_TIME_FOREVER);    
-    dispatch_release(process_group);
-}
-
-- (void)addTweetsToTweetItems:(NSArray *)tweets {
-    if (self.tweetItems == nil) {
-        self.tweetItems = [[NSMutableArray alloc] init];
-    }
-    
-    
-    for (TweetItem *tweet in tweets) {
-        NSString *currentId = tweet.tweetId;
-        BOOL hasTweet = NO;
-        
-        for (TweetItem *storedTweet in self.tweetItems) {
-            if ([storedTweet.tweetId isEqualToString:currentId]) {
-                hasTweet = YES;
-            }
-        }
-        
-        if (!hasTweet) {
-            [self.tweetItems addObject:tweet];
-        }
-    }
-    
-    [self sortTweets];
-}
-
 - (void)_processTweetItems:(NSMutableArray *)tweets {
-    [self addTweetsToTweetItems:tweets]; //expensive operation
+    NSArray *newTweetItemsArray = [TweetItem addTweets:tweets to:self.tweetItems];
+    NSArray *sortedTweets = [TweetItem sortTweets:newTweetItemsArray];
+    self.tweetItems = sortedTweets;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
