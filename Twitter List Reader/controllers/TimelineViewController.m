@@ -142,9 +142,7 @@
                     [tweets addObject:item];
                 }
                 
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                    [self _processTweetItems:tweets]; 
-                });
+                [self performSelector:@selector(_processTweetItems:) withObject:tweets];
             }
             //NSLog(@"Twitter response: %@", returnedTweets);
         }
