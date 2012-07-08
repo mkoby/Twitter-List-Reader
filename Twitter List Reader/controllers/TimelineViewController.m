@@ -255,7 +255,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //[self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     NSUInteger row = [indexPath row];
     self.selectedTweet = [self.tweetItems objectAtIndex:row];
 }
