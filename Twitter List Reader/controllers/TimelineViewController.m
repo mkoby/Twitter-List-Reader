@@ -122,13 +122,11 @@
                                                requestMethod:TWRequestMethodGET];
     twitterRequest.account = account;
     
-    //Move Twitter specific stuff to Twitter API handling model
-    //Leave View Controller stuff here.
     [twitterRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
         if ([urlResponse statusCode] == 200) 
         {
             // The response from Twitter is in JSON format
-            // Move the response into a dictionary and print
+            // Move the response into a dictionary
             NSError *error;        
             NSDictionary *returnedTweets = nil;
             returnedTweets = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
