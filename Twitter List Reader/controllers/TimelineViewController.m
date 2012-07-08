@@ -228,13 +228,6 @@
     NSUInteger row = [indexPath row];
     TweetItem *tweet = [self.tweetItems objectAtIndex:row];
     
-    float currentRow = (float)row;
-    float totalRows = (float)self.tweetItems.count;
-    
-    if ((currentRow / totalRows) > .85) {
-        [self performSelectorInBackground:@selector(_loadOlderTweets) withObject:nil];
-    }
-    
     UILabel *nameLabel = (UILabel *)[cell viewWithTag:2];
     nameLabel.text = tweet.username;
     
@@ -265,6 +258,14 @@
     //[self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     NSUInteger row = [indexPath row];
     self.selectedTweet = [self.tweetItems objectAtIndex:row];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if(self.tableView.contentOffset.y >= (self.tableView.contentSize.height - self.tableView.frame.size.height)) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            [self performSelector:@selector(_loadOlderTweets) withObject:nil];
+        });
+    }
 }
 
 @end
